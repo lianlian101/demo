@@ -1,0 +1,17 @@
+package com.mvn.test.dao;
+
+import java.util.List;
+
+import org.apache.ibatis.annotations.Param;
+
+import com.mvn.test.entity.User;
+
+public interface UserDao {
+
+    User getUser(@Param("id")Integer id);
+    
+    List<User> getUsers(@Param("names")String names);
+    
+    Integer addUser(User user);
+    
+}
