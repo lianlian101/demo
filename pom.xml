@@ -93,24 +93,29 @@
 		</dependency>
 		<!-- 编码 -->
 		<dependency>
-		    <groupId>net.iharder</groupId>
-		    <artifactId>base64</artifactId>
-		    <version>2.3.8</version>
+			<groupId>net.iharder</groupId>
+			<artifactId>base64</artifactId>
+			<version>2.3.8</version>
 		</dependency>
-		
-		<dependency>
-            <groupId>org.apache.commons</groupId>
-            <artifactId>commons-lang3</artifactId>
-            <version>3.3.2</version>
-        </dependency>
 
-        <!-- 汉字拼音首字母 -->
 		<dependency>
-		    <groupId>com.belerweb</groupId>
-		    <artifactId>pinyin4j</artifactId>
-		    <version>2.5.1</version>
+			<groupId>org.apache.commons</groupId>
+			<artifactId>commons-lang3</artifactId>
+			<version>3.3.2</version>
 		</dependency>
-        
+
+		<!-- 汉字拼音首字母 -->
+		<dependency>
+			<groupId>com.belerweb</groupId>
+			<artifactId>pinyin4j</artifactId>
+			<version>2.5.1</version>
+		</dependency>
+
+		<!-- restful风格 -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-data-rest</artifactId>
+		</dependency>
 
 		<!-- 热启动 -->
 		<!-- <dependency> <groupId>org.springframework.boot</groupId> <artifactId>spring-boot-devtools</artifactId> 
