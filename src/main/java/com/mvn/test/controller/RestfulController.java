@@ -1,22 +1,52 @@
 package com.mvn.test.controller;
 
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
 @RequestMapping("/restful/")
 public class RestfulController {
 
-    @RequestMapping("/index/{str}")
+    //@GetMapping("user")
+    @RequestMapping(value="user",method=RequestMethod.GET)
     @ResponseBody
-    public String index(@PathVariable String str){
+    public String getUser(){
         
-        System.out.println("接收到的数据：" + str);
+        System.out.println("获取用户");
         
-        return "index";
+        return "get";
     }
     
+    //@PostMapping("user")
+    @RequestMapping(value="user",method=RequestMethod.POST)
+    @ResponseBody
+    public String addUser(){
+        
+        System.out.println("添加用户");
+        
+        return "add";
+    }
+    
+    //@PutMapping("user")
+    @RequestMapping(value="user",method=RequestMethod.PUT)
+    @ResponseBody
+    public String updateUser(){
+        
+        System.out.println("更新用户");
+        
+        return "update";
+    }
+    
+    //@DeleteMapping("user")
+    @RequestMapping(value="user",method=RequestMethod.DELETE)
+    @ResponseBody
+    public String deleteUser(){
+        
+        System.out.println("删除用户");
+        
+        return "delete";
+    }
     
 }
