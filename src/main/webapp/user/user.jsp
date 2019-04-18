@@ -24,6 +24,17 @@
 		}); 
 	}
 	
+	function param_btn(){
+		$.ajax({
+			url:"/user/img",
+			data:{"str":"测试"},
+			type:"post",
+			success:function(data){
+				console.log(data);
+			}
+		});
+	}
+	
 </script>
 <style type="text/css">
     div {
@@ -44,5 +55,7 @@
         <input id="username" type="text" name="username">
         <input id="password" type="text" name="password">
     </div>
+    
+    <input type="button" value="参数设置" onclick="param_btn()">
 </body>
 </html>

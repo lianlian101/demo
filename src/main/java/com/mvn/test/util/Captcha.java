@@ -11,9 +11,6 @@ import javax.servlet.http.HttpServletResponse;
 
 /**
  * 验证码图片生成工具 使用JAVA生成的图片验证码，调用getRandcode方法获取图片验证码，以流的方式传输到前端页面。
- * 
- * 
- * 作者: zhoubang 日期：2015年8月7日 上午10:41:05
  */
 public class Captcha {
 

@@ -1,8 +1,10 @@
 package com.mvn.test.controller;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
@@ -47,6 +49,24 @@ public class RestfulController {
         System.out.println("删除用户");
         
         return "delete";
+    }
+    
+    @RequestMapping(value={"path_variable/{str}","path_variable"})
+    @ResponseBody
+    public String pathVariable(@PathVariable(required=false)String str){
+        if(null == str){
+            return "无参";
+        }
+        return str;
+    }
+    
+    @RequestMapping("request_param")
+    @ResponseBody
+    public String requestParam(@RequestParam(required=false)String str){
+        if(null == str){
+            return "无参";
+        }
+        return str;
     }
     
 }

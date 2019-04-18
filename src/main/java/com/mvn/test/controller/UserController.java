@@ -13,6 +13,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.alibaba.fastjson.JSON;
@@ -87,6 +88,18 @@ public class UserController {
         return userService.getUser(id);
     }
     
+    @RequestMapping("get_user")
+    @ResponseBody
+    public User getuser(@RequestBody String data){
+        if(null != data){
+            JSONObject po = JSON.parseObject(data);
+            String id = po.get("id").toString();
+            Integer userid = Integer.parseInt(id);
+            return userService.getUser(userid);
+        }
+        return null;
+    }
+    
     @RequestMapping("/getUsers")
     @ResponseBody
     public List<User> getUsers(){
@@ -151,6 +164,13 @@ public class UserController {
         UserResult userResult = JSON.parseObject(str, UserResult.class);
         userService.addUser(userResult);
         return null;
+    }
+    
+    @RequestMapping("img")
+    @ResponseBody
+    public String img(@RequestParam String str){
+        System.out.println(str);
+        return str;
     }
     
 }
