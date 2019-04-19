@@ -14,4 +14,6 @@ public interface UserDao {
     
     Integer addUser(User user);
     
+    List<User> fuzzySearch(@Param("param")String param);
+    
 }

@@ -173,4 +173,10 @@ public class UserController {
         return str;
     }
     
+    @RequestMapping("/fuzzySearch")
+    @ResponseBody
+    public List<User> fuzzySearch(@RequestParam String param){
+        return userService.fuzzySearch(param);
+    }
+    
 }

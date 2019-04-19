@@ -30,4 +30,9 @@ public class UserServiceImpl implements UserService {
         return userDao.addUser(user);
     }
 
+    @Override
+    public List<User> fuzzySearch(String param) {
+        return userDao.fuzzySearch(param);
+    }
+
 }

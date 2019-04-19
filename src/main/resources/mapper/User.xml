@@ -15,5 +15,9 @@
         insert into user (username, password, createTime)
         values (#{username}, #{password}, #{createTime})
     </insert>
+    
+    <select id="fuzzySearch" resultType="User">
+        select * from user where username like concat('%',#{param},'%')
+    </select>
   
 </mapper>

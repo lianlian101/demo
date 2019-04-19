@@ -12,4 +12,6 @@ public interface UserService {
     
     Integer addUser(User user);
     
+    List<User> fuzzySearch(String param);
+    
 }
