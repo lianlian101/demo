@@ -22,7 +22,7 @@
 		        alert("异常！");
 		    }
 		}); */
-
+	    
 		function Email(name) {
 			this.email = name;
 		}

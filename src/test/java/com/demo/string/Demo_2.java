@@ -94,4 +94,14 @@ public class Demo_2 {
         System.out.println(FormatCheck.isNumber(str));
         
     }
+    
+    @Test
+    public void demo10(){
+        Integer a = 12;
+        a.longValue();
+        String str = "str";
+        char c = str.charAt(1);
+        System.out.println(c);
+    }
+    
 }

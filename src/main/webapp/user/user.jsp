@@ -5,7 +5,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
 <script type="text/javascript" src="/js/jquery-3.3.1.js"></script>
-<script type="text/javascript" src="/js/jquery.serializejson.js"></script>
+<!-- <script type="text/javascript" src="/js/jquery.serializejson.js"></script> -->
 <!-- <script type="text/javascript" src="/js/formatCheck.js"></script> -->
 <script type="text/javascript">
 	function btn() {
@@ -35,6 +35,11 @@
 		});
 	}
 	
+	function jqtest(){
+		var jq = $('#jq').val();
+		console.log(jq);
+	}
+	
 </script>
 <style type="text/css">
     div {
@@ -57,5 +62,7 @@
     </div>
     
     <input type="button" value="参数设置" onclick="param_btn()">
+    
+    <input id="jq" type="button" value="jq测试" onclick="jqtest()">
 </body>
 </html>
