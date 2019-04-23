@@ -104,4 +104,15 @@ public class Demo_2 {
         System.out.println(c);
     }
     
+    @Test
+    public void demo11(){
+        String str = "hello world";
+        str = new StringBuilder(str).reverse().toString();
+        System.out.println(str);
+        
+        int a = 2;
+        int b = a << 2;
+        System.out.println(b);
+    }
+    
 }

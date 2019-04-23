@@ -6,7 +6,7 @@
 <title>Insert title here</title>
 <script type="text/javascript" src="/js/jquery-3.3.1.js"></script>
 <script type="text/javascript">
-	function tt() {
+	function code() {
 		$.ajax({
 			url : "${pageContext.request.contextPath}/file/getImage",
 			type : "post",
@@ -20,26 +20,24 @@
 		});
 	}
 	
+	$(function(){
+		var url = "${pageContext.request.contextPath}/httpclient/getRandcode";
+		document.getElementById("randcode").onclick = function(){
+			document.getElementById("randcode").src = "${pageContext.request.contextPath}/httpclient/getRandcode?"+Math.random();
+		};
+	});
 </script>
 <style type="text/css">
-    div {
-    	padding-bottom: 10px;
-    }
-    
-    input {
-    	margin-bottom: 10px;
-    }
+    div { padding-bottom: 10px; }
+    input {	margin-bottom: 10px; }
 </style>
 </head>
 <body>
     <div>
-        <%-- <form id="ff" action="${pageContext.request.contextPath}/file/getImage" method="post">
-            <input type="submit" value="提交">
-        </form> --%>
-        
         <img id="img" alt="" src="">
+        <button type="button" onclick="code()">获取验证码</button>
         
-        <button type="button" onclick="tt()">ceshi</button>
+        <img id="randcode" alt="" src="${pageContext.request.contextPath}/httpclient/getRandcode">
     </div>
 </body>
 </html>

@@ -132,4 +132,28 @@ public class IP {
         return "127.0.0.1";
     }
 
+    /**
+     * 创建日期: 2019年4月23日 创建人: zhb 说明: 获取服务器项目路径，返回带端口号的路径
+     * 
+     * @param request
+     * @return
+     */
+    public static String getServerPath(HttpServletRequest request){
+        String path = request.getScheme()+"://" + request.getServerName()+ ":" + 
+                request.getServerPort() + request.getContextPath() + "/";
+        return path;
+    }
+   
+    /**
+     * 创建日期: 2019年4月23日 创建人: zhb 说明: 获取服务器项目路径，返回不带端口号的路径
+     * 
+     * @param request
+     * @param str 标识，任意值
+     * @return
+     */
+    public static String getServerPath(HttpServletRequest request, String str){
+        String path = request.getScheme()+"://" + request.getServerName() + request.getContextPath() + "/";
+        return path;
+    }
+    
 }

@@ -1,11 +1,13 @@
 package com.mvn.test.controller;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.mvn.test.util.Code;
 import com.mvn.test.util.IP;
 import com.mvn.test.util.IPUtil;
 
@@ -37,6 +39,19 @@ public class HttpClientController {
         System.out.println("客户端ip: " + ip);
         
         return null;
+    }
+    
+    @RequestMapping("/getServerPath")
+    @ResponseBody
+    public String getServerPath(HttpServletRequest request){
+        String path = IP.getServerPath(request,null);
+        return path;
+    }
+    
+    @RequestMapping("/getRandcode")
+    public void getRandcode(HttpServletResponse response){
+        Code code = new Code();
+        code.getRandcode(response);
     }
     
 }
