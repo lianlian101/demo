@@ -1,16 +1,13 @@
 package com.demo.list;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
-import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.junit.Test;
 
@@ -18,6 +15,10 @@ import com.alibaba.fastjson.JSON;
 
 public class ListTest {
 
+    /**
+     * 创建日期: 2019年4月29日 创建人: zhb 说明: Collentions.frequency(list, str);
+     *
+     */
     @Test
     public void demo1() {
         ArrayList<String> list = new ArrayList<String>();
@@ -40,6 +41,10 @@ public class ListTest {
         System.out.println(list2);
     }
 
+    /**
+     * 创建日期: 2019年4月29日 创建人: zhb 说明: list.toArray(); StringUtils.join(arr, char);
+     *
+     */
     @Test
     public void demo2() {
         ArrayList<String> list = new ArrayList<String>();
@@ -54,6 +59,10 @@ public class ListTest {
         System.out.println(str);
     }
 
+    /**
+     * 创建日期: 2019年4月29日 创建人: zhb 说明: list.iterator(); list.forEach(action); list.stream(), list.parallelStream()
+     *
+     */
     @Test
     public void demo3() {
         List<String> list = new ArrayList<String>();
@@ -75,7 +84,7 @@ public class ListTest {
         }
         System.out.println(list);
         System.out.println("Lambda的方式遍历：");
-        list.forEach(itea -> System.out.println(itea));
+        list.forEach(item -> System.out.println(item));
 
         System.out.println("Lambda的方式遍历：");
         Map<Object, Object> map = new HashMap<>();
@@ -84,30 +93,21 @@ public class ListTest {
         map.forEach((k, v) -> {
             System.out.println(k + "-->" + v);
         });
+        
+        System.out.println("单管道stream遍历：");
+        list.stream().forEach(item -> System.out.println(item));
+        
+        System.out.println("多管道stream遍历：");
+        list.parallelStream().forEach(item -> {System.out.println(item);});
 
     }
 
+    /**
+     * 创建日期: 2019年4月29日 创建人: zhb 说明: list.iterator(); iterator.remove();
+     *
+     */
     @Test
     public void demo4() {
-        String[] arrayStr = { "java", "sql", "html", "" };
-        List<String> list = Arrays.asList(arrayStr);
-        System.out.println(list);
-        arrayStr[3] = "javascript";
-
-        System.out.println(list);
-
-        List<String> list2 = new ArrayList<>(list);
-        list2.add("js");
-        System.out.println(list2);
-
-        String[] str = new String[list.size()];
-        String[] array = list.toArray(str);
-        System.out.println(Arrays.asList(array));
-
-    }
-
-    @Test
-    public void demo5() {
         List<String> list = new ArrayList<>();
         list.add("1");
         list.add("2");
@@ -127,12 +127,5 @@ public class ListTest {
         System.out.println(list);
     }
     
-    @Test
-    public void demo6(){
-        String[] str = {"java","mysql","javascript"};
-        ArrayUtils.reverse(str);
-        System.out.println(Arrays.asList(str));
-       
-    }
 
 }

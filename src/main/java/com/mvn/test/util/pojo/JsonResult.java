@@ -1,8 +1,8 @@
-package com.mvn.test.response;
+package com.mvn.test.util.pojo;
 
 import java.io.Serializable;
 
-public class AjaxResult implements Serializable{
+public class JsonResult implements Serializable{
 
     /**
      * 
@@ -15,11 +15,11 @@ public class AjaxResult implements Serializable{
     
     private Object data = null;
 
-    public AjaxResult() {
+    public JsonResult() {
         super();
     }
 
-    public AjaxResult(Integer code, String msg, Object data) {
+    public JsonResult(Integer code, String msg, Object data) {
         super();
         this.code = code;
         this.msg = msg;

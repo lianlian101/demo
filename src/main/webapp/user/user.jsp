@@ -40,6 +40,20 @@
 		console.log(jq);
 	}
 	
+	function arrTest(){
+		$.ajax({
+			url: "/user/arrTest",
+			data: {"ids": [1,2,3], "status":1},
+			type: "post",
+			success: function(data){
+				console.log(data);
+			},
+			error: function(xhr){
+				console.log(xhr);
+			}
+		});
+	}
+	
 </script>
 <style type="text/css">
     div {
@@ -64,5 +78,7 @@
     <input type="button" value="参数设置" onclick="param_btn()">
     
     <input id="jq" type="button" value="jq测试" onclick="jqtest()">
+    
+    <input type="button" value="数组" onclick="arrTest()">
 </body>
 </html>

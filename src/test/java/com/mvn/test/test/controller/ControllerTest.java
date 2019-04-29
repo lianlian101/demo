@@ -1,4 +1,4 @@
-package com.mvn.test.demo;
+package com.mvn.test.test.controller;
 
 import org.junit.Before;
 import org.junit.Test;

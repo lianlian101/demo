@@ -12,6 +12,8 @@ public interface UserDao {
     
     List<User> getUsers(@Param("names")String names);
     
+    List<User> getUserList();
+    
     Integer addUser(User user);
     
     List<User> fuzzySearch(@Param("param")String param);

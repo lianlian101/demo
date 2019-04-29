@@ -42,5 +42,30 @@
             <input type="submit" value="提交">
         </form>
     </div>
+    
+    <div>
+        <form id="ff2" action="javascript:void(0);" method="post" enctype="multipart/form-data">
+            <input id="file" type="file" name="file">
+            <input type="button" value="检验" onclick="checkfile()">
+        </form>
+    </div>
+    <script type="text/javascript">
+        function checkfile(){
+        	$.ajax({
+                url: '/file/readExcel',
+                type: 'post',
+                cache: false,
+                data: new FormData($('#ff2')[0]),
+                processData: false,
+                contentType: false
+            })
+            .done(function(res) {
+            	console.log(res);
+            })
+            .fail(function(res) {
+            	console.log("操作失败",res);
+            });
+        }
+    </script>
 </body>
 </html>

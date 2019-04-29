@@ -1,5 +1,6 @@
 package com.mvn.test.controller;
 
+import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -20,8 +21,8 @@ import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.mvn.test.entity.User;
 import com.mvn.test.entity.pojo.UserResult;
-import com.mvn.test.response.AjaxResult;
 import com.mvn.test.service.UserService;
+import com.mvn.test.util.pojo.JsonResult;
 
 @Controller
 @RequestMapping("/user")
@@ -35,7 +36,7 @@ public class UserController {
     @RequestMapping("/index")
     public String index(@RequestBody String data, HttpServletRequest request, Map<String, String> map){
         
-        AjaxResult ajaxResult = new AjaxResult();
+        JsonResult jsonResult = new JsonResult();
         
         String key = request.getParameter("key");
         System.out.println("key is: " + key);
@@ -43,17 +44,17 @@ public class UserController {
         JSONObject parse = JSON.parseObject(data);
         System.out.println("解析后的数据为: " + parse);
         
-        System.out.println(ajaxResult);
+        System.out.println(jsonResult);
         
         switch (key) {
         case "1": 
-            request.setAttribute("ajaxResult", ajaxResult); 
+            request.setAttribute("jsonResult", jsonResult); 
             return "forward:/success.jsp?key=1";
         
         default: 
-            ajaxResult.setCode(0);
-            ajaxResult.setMsg("操作失败");
-            request.setAttribute("ajaxResult", ajaxResult);
+            jsonResult.setCode(0);
+            jsonResult.setMsg("操作失败");
+            request.setAttribute("jsonResult", jsonResult);
             return "forward:/fail.jsp?key=other";
         }
         
@@ -105,6 +106,12 @@ public class UserController {
     public List<User> getUsers(){
         String names = "zhangsan,lisi";
         return userService.getUsers(names);
+    }
+    
+    @RequestMapping("/listUser")
+    @ResponseBody
+    public List<User> getUserList(){
+        return userService.getUserList();
     }
     
     @RequestMapping("meth1")
@@ -177,6 +184,14 @@ public class UserController {
     @ResponseBody
     public List<User> fuzzySearch(@RequestParam String param){
         return userService.fuzzySearch(param);
+    }
+    
+    @RequestMapping("/arrTest")
+    @ResponseBody
+    public String arrTest(@RequestParam("ids[]")Integer[] ids, @RequestParam("status")String status){
+        System.out.println(Arrays.asList(ids));
+        System.out.println(status);
+        return "success";
     }
     
 }

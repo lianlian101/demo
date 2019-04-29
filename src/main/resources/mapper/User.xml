@@ -11,6 +11,10 @@
         select * from user where find_in_set(username, #{names}) 
     </select>
     
+    <select id="getUserList" resultType="com.mvn.test.entity.User">
+        select * from user
+    </select>
+    
     <insert id="addUser">
         insert into user (username, password, createTime)
         values (#{username}, #{password}, #{createTime})

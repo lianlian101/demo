@@ -1,23 +1,19 @@
-package com.mvn.test.demo;
+package com.demo.util;
 
 import java.io.File;
 import java.io.IOException;
 import java.util.Iterator;
 import java.util.Map;
-import java.util.Map.Entry;
 import java.util.Set;
+import java.util.Map.Entry;
 
 import org.junit.Test;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.mvn.test.util.Excel;
 import com.mvn.test.util.FileUtil;
 
-public class FileTest {
-    
-    private static final Logger log = LoggerFactory.getLogger(FileTest.class);
+public class FileUtilTest {
 
     /**
      * 创建日期: 2019年3月26日
@@ -31,7 +27,6 @@ public class FileTest {
         MultipartFile multipartFile = FileUtil.fileToMultipartFile(file);
         Map<String, Object> map = Excel.verify(multipartFile);
         if(null != map && !map.isEmpty()){
-            log.debug("\n异常数据为:");
             Set<Entry<String,Object>> set = map.entrySet();
             Iterator<Entry<String, Object>> iterator = set.iterator();
             while(iterator.hasNext()){
@@ -44,6 +39,5 @@ public class FileTest {
             System.out.println("数据格式都正确");
         }
     }
-    
     
 }

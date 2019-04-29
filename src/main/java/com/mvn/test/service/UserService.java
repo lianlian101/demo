@@ -10,6 +10,8 @@ public interface UserService {
     
     List<User> getUsers(String names);
     
+    List<User> getUserList();
+    
     Integer addUser(User user);
     
     List<User> fuzzySearch(String param);
