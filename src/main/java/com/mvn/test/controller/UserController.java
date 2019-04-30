@@ -22,10 +22,11 @@ import com.alibaba.fastjson.JSONObject;
 import com.mvn.test.entity.User;
 import com.mvn.test.entity.pojo.UserResult;
 import com.mvn.test.service.UserService;
+import com.mvn.test.service.impl.RedisService;
 import com.mvn.test.util.pojo.JsonResult;
 
 @Controller
-@RequestMapping("/user")
+@RequestMapping("/user/")
 public class UserController {
     
     private Logger log = LoggerFactory.getLogger(UserController.class);
@@ -192,6 +193,38 @@ public class UserController {
         System.out.println(Arrays.asList(ids));
         System.out.println(status);
         return "success";
+    }
+    
+//    @Autowired
+//    private RedisService redisService;
+//    
+//    @RequestMapping("setValue")
+//    @ResponseBody
+//    public String setValue(){
+//        //redisService.setex("username", "lisi", -1);
+//        
+//        User user = new User();
+//        user.setUsername("张三");
+//        user.setPassword("123");
+//        user.setCreateTime(new Date());
+//        
+//        redisService.setex("user", user, 60);
+//        
+//        User obj = redisService.getObj("user", User.class);
+//        System.out.println(obj);
+//        return null;
+//    }
+    
+    @RequestMapping("updateUser")
+    @ResponseBody
+    public Integer updateUser(){
+        User user = new User();
+        user.setId(7);
+        user.setUsername("测试");
+        //user.setPassword("789");
+        user.setCreateTime(new Date());
+        Integer m = userService.upateUser(user);
+        return m;
     }
     
 }

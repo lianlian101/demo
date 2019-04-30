@@ -23,5 +23,20 @@
     <select id="fuzzySearch" resultType="User">
         select * from user where username like concat('%',#{param},'%')
     </select>
+    
+    <update id="updateUser">
+        update user 
+        <!-- <trim prefix="set" suffixOverrides=",">
+            <if test="username != null"> username = #{username}, </if>
+            <if test="password != null"> password = #{password}, </if>
+            <if test="createTime != null"> createTime = #{createTime}, </if>
+        </trim> -->
+        <set>
+            <if test="username != null"> username = #{username}, </if>
+            <if test="password != null"> password = #{password}, </if>
+            <if test="createTime != null"> createTime = #{createTime} </if>
+        </set>
+        where id = #{id}
+    </update>
   
 </mapper>

@@ -40,5 +40,10 @@ public class UserServiceImpl implements UserService {
         return userDao.fuzzySearch(param);
     }
 
+    @Override
+    public Integer upateUser(User user) {
+        return userDao.updateUser(user);
+    }
+
 
 }
