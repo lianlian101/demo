@@ -5,6 +5,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import org.apache.commons.lang3.ArrayUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.junit.Test;
 
 public class ArrayTest {
@@ -72,6 +73,21 @@ public class ArrayTest {
         String[] str = {"java","mysql","javascript"};
         ArrayUtils.reverse(str);
         System.out.println(Arrays.asList(str));
+    }
+    
+    /**
+     * 创建日期: 2019年5月5日 创建人: zhb 说明: ArrayUtils.isEmpty(str);
+     *
+     */
+    @Test
+    public void demo5(){
+        
+        String[] arr = {};
+        System.out.println(Arrays.asList(arr));
+        
+        boolean b = ArrayUtils.isEmpty(arr);
+        System.out.println(b);
+        
     }
     
     
