@@ -2,10 +2,12 @@ package com.mvn.test.util.cache;
 
 import java.util.Collection;
 import java.util.Map;
+import java.util.Objects;
 import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 
 import org.apache.commons.collections4.CollectionUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Component;
 
 /**
@@ -38,6 +40,9 @@ public class DataCache implements IDataCache {
      */
     @Override
     public void putCache(String key, Object datas, long timeOut) {
+        if(StringUtils.isEmpty(key) || StringUtils.isEmpty(Objects.toString(datas))){
+            return;
+        }
         if (timeOut == 0) {
             if (isContains(key)) {
                 clearByKey(key);

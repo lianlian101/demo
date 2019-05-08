@@ -1,6 +1,5 @@
 package com.mvn.test.controller;
 
-import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -21,11 +20,14 @@ public class DataCacheController {
      * @return
      */
     @RequestMapping("setData")
-    public String setData(@RequestParam(required = false) String param){
-        if(!StringUtils.isEmpty(param)){
-            dataCache.putCache(param, param, 5*1000);
+    public String setData(@RequestParam String k, @RequestParam String v){
+        try {
+            dataCache.putCache(k, v, 10*1000);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return "失败";
         }
-        return "success";
+        return "成功";
     }
     
     /**
@@ -34,10 +36,13 @@ public class DataCacheController {
      * @return
      */
     @RequestMapping("getData")
-    public Object getData(@RequestParam(required = false) String param){
+    public Object getData(@RequestParam String k){
         Object obj = null;
-        if(!StringUtils.isEmpty(param)){
-            obj = dataCache.getCacheDataByKey(param);
+        try {
+            obj = dataCache.getCacheDataByKey(k);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return "异常";
         }
         return obj;
     }
@@ -48,8 +53,8 @@ public class DataCacheController {
      * @return
      */
     @RequestMapping("getCacheSurplusTimeOut")
-    public long getCacheSurplusTimeOut(@RequestParam(required = false) String param){
-        return dataCache.getCacheSurplusTimeOut(param);
+    public long getCacheSurplusTimeOut(@RequestParam String k){
+        return dataCache.getCacheSurplusTimeOut(k);
     }
     
 }
