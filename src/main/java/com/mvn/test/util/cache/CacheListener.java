@@ -37,7 +37,7 @@ public class CacheListener implements ApplicationRunner {
         keys.forEach(key -> {
             if (dataCache.isTimeOut(key)) {
                 dataCache.clearByKey(key);
-                System.out.println("清除缓存：" + key);
+                //System.out.println("清除缓存：" + key);
             }
         });
     }
