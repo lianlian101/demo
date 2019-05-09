@@ -1,4 +1,4 @@
-package com.mvn.test.util.cache;
+package com.mvn.test.util.customcache;
 
 /**
  * 

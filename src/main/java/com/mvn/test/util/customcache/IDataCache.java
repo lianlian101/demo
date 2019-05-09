@@ -1,4 +1,4 @@
-package com.mvn.test.util.cache;
+package com.mvn.test.util.customcache;
 
 import java.util.Collection;
 import java.util.Map;

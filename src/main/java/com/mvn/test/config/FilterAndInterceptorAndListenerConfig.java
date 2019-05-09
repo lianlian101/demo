@@ -1,4 +1,4 @@
-package com.mvn.test.conf;
+package com.mvn.test.config;
 
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.boot.web.servlet.ServletListenerRegistrationBean;
@@ -13,7 +13,7 @@ import com.mvn.test.util.interceptor.ReqInterceptor;
 import com.mvn.test.util.listener.SessionListener;
 
 @Configuration
-public class FilterAndInterceptorConfig extends WebMvcConfigurerAdapter {
+public class FilterAndInterceptorAndListenerConfig extends WebMvcConfigurerAdapter {
     
     /**
      * 添加拦截请求和排除拦截请求

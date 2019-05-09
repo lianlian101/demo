@@ -5,7 +5,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.mvn.test.util.cache.DataCache;
+import com.mvn.test.util.customcache.DataCache;
 
 @RestController
 @RequestMapping("/cache/")

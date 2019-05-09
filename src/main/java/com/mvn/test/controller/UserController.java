@@ -187,27 +187,7 @@ public class UserController {
         System.out.println(status);
         return "success";
     }
-    
-//    @Autowired
-//    private RedisService redisService;
-//    
-//    @RequestMapping("setValue")
-//    @ResponseBody
-//    public String setValue(){
-//        //redisService.setex("username", "lisi", -1);
-//        
-//        User user = new User();
-//        user.setUsername("张三");
-//        user.setPassword("123");
-//        user.setCreateTime(new Date());
-//        
-//        redisService.setex("user", user, 60);
-//        
-//        User obj = redisService.getObj("user", User.class);
-//        System.out.println(obj);
-//        return null;
-//    }
-    
+        
     @RequestMapping("updateUser")
     @ResponseBody
     public Integer updateUser(){
