@@ -4,8 +4,10 @@ import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.boot.web.servlet.ServletListenerRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.core.Ordered;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
+import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 
 import com.mvn.test.util.filter.ReqFilter;
@@ -14,6 +16,16 @@ import com.mvn.test.util.listener.SessionListener;
 
 @Configuration
 public class FilterAndInterceptorAndListenerConfig extends WebMvcConfigurerAdapter {
+    
+    /**
+     * 设置默认首页
+     */
+    @Override
+    public void addViewControllers(ViewControllerRegistry registry) {
+        registry.addViewController("/").setViewName("forward:index.jsp");
+        registry.setOrder(Ordered.HIGHEST_PRECEDENCE);
+        super.addViewControllers(registry);
+    }
     
     /**
      * 添加拦截请求和排除拦截请求
@@ -35,8 +47,8 @@ public class FilterAndInterceptorAndListenerConfig extends WebMvcConfigurerAdapt
          * public路径就访问不了了； 但是，如果想加resources/static/public路径也能访问，需要配置以下配置
          */
         // 当访问路径中包含handler中的路径的时候，resource handler就会去locations中的目录下访问了
-        String[] handler = { "/resources/**", "/static/**", "/public/**" };
-        String[] locations = { "classpath:/resources/", "classpath:/static/", "classpath:/public/" };
+        String[] handler = { "/resources/**", "/static/**", "/public/**", "/file/**" };
+        String[] locations = { "classpath:/resources/", "classpath:/static/", "classpath:/public/", "classpath:/file/" };
         registry.addResourceHandler(handler).addResourceLocations(locations);
         super.addResourceHandlers(registry);
     }
@@ -64,5 +76,5 @@ public class FilterAndInterceptorAndListenerConfig extends WebMvcConfigurerAdapt
         registrationBean.setListener(new SessionListener());
         return registrationBean;
     }
-
+ 
 }
