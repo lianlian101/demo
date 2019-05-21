@@ -51,7 +51,10 @@ public class FilterAndInterceptorAndListenerConfig extends WebMvcConfigurerAdapt
      */
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
-        registry.addInterceptor(new ReqInterceptor()).addPathPatterns("/**").excludePathPatterns("/login/**");
+        registry.addInterceptor(new ReqInterceptor())
+        .excludePathPatterns("/login/**")
+        .excludePathPatterns("/js/**")
+        .addPathPatterns("/**"); // 排除静态资源
         super.addInterceptors(registry);
     }
 
