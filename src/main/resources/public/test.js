@@ -1,3 +1,3 @@
 function fun(){
-	console.log("hello js");
+	console.log("public.js");
 }

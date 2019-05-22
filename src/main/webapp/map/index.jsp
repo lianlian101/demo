@@ -84,6 +84,11 @@
                         	projectId = sites[i].projectId;
                         }
                     }
+                	// 跳转到指定页面
+                	//$(location).attr('href','/index.jsp');
+                	//$(location).prop('href','/index.jsp');
+                	//$(window).attr('location','/index.jsp');
+                	window.location.href="/index.jsp";
                 });
             }
             

@@ -2,16 +2,24 @@ package com.demo.stream;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Comparator;
+import java.util.Date;
 import java.util.IntSummaryStatistics;
 import java.util.LinkedHashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.TreeSet;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.function.Function;
+import java.util.function.Predicate;
+import java.util.stream.Collector;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import org.junit.Test;
+
+import com.mvn.test.entity.User;
 
 public class StreamTest {
 
@@ -149,6 +157,38 @@ public class StreamTest {
         System.out.println("所有数之和 : " + stats.getSum());
         System.out.println("平均数 : " + stats.getAverage());
     }
+    
+    /**
+     * 创建日期: 2019年5月22日 创建人: zhb 说明: 根据对象的指定属性去重
+     *
+     */
+    @Test
+    public void demo8(){
+        List<User> list = new ArrayList<User>();
+        list.add(new User(1, "张三", "123", new Date()));
+        list.add(new User(2, "李四", "123", new Date()));
+        list.add(new User(3, "王五", "123", new Date()));
+        list.add(new User(1, "张三", "123", new Date()));
+        list.add(new User(1, "张三", "123", new Date()));
+        
+        // 方式一
+        @SuppressWarnings("unchecked")
+        ArrayList<User> collect = list.stream().collect(Collectors.collectingAndThen(Collectors.toCollection(
+                // 利用  TreeSet 的排序去重构造函数来达到去重元素的目的
+                () -> new TreeSet<>(Comparator.comparing(User::getId))), ArrayList::new));
+        // 方式二
+        List<User> filter = list.stream().filter(distinctByKey(b -> b.getId())).collect(Collectors.toList());
+        
+        System.out.println(collect);
+        System.out.println(filter);
+      
+    }
+    
+    // 去重方法
+    static <T> Predicate<T> distinctByKey(Function<? super T, ?> keyExtractor) {
+        Map<Object,Boolean> seen = new ConcurrentHashMap<>();
+        return t -> seen.putIfAbsent(keyExtractor.apply(t), Boolean.TRUE) == null;
+    } 
 
     
 }

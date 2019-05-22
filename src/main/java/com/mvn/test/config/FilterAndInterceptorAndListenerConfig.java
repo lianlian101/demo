@@ -40,8 +40,8 @@ public class FilterAndInterceptorAndListenerConfig extends WebMvcConfigurerAdapt
          * 相当于静态文件(/file/**)
          */
         // 当访问路径中包含handler中的路径的时候，resource handler就会去locations中的目录下访问了
-        String[] handler = { "/resources/**", "/static/**", "/public/**", "/file/**" };
-        String[] locations = { "classpath:/resources/", "classpath:/static/", "classpath:/public/", "classpath:/file/" };
+        String[] handler = { "/META-INF/resources/**", "/resources/**", "/static/**", "/public/**", "/file/**" };
+        String[] locations = { "classpath:/META-INF/resources/", "classpath:/resources/", "classpath:/static/", "classpath:/public/", "classpath:/file/" };
         registry.addResourceHandler(handler).addResourceLocations(locations);
         super.addResourceHandlers(registry);
     }
@@ -52,9 +52,8 @@ public class FilterAndInterceptorAndListenerConfig extends WebMvcConfigurerAdapt
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
         registry.addInterceptor(new ReqInterceptor())
-        .excludePathPatterns("/login/**")
-        .excludePathPatterns("/js/**")
-        .addPathPatterns("/**"); // 排除静态资源
+        .addPathPatterns("/**")
+        .excludePathPatterns("/login/**");
         super.addInterceptors(registry);
     }
 
