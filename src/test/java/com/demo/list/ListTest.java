@@ -2,16 +2,19 @@ package com.demo.list;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 import org.apache.commons.lang3.StringUtils;
 import org.junit.Test;
 
 import com.alibaba.fastjson.JSON;
+import com.mvn.test.entity.User;
 
 public class ListTest {
 
@@ -125,6 +128,26 @@ public class ListTest {
             }
         }
         System.out.println(list);
+    }
+    
+    /**
+     * 创建日期: 2019年5月28日 创建人: zhb 说明: 根据对象的某个属性过滤
+     *
+     */
+    @Test
+    public void demo5(){
+        User user = new User(1,"张三","123", new Date());
+        User user2 = new User(2,"张三","456", new Date());
+        User user3 = new User(3,"李四","123", new Date());
+        List<User> list = new ArrayList<User>();
+        list.add(user);
+        list.add(user2);
+        list.add(user3);
+        System.out.println(list);
+        List<User> collect = list.stream().filter(item->{
+            return !item.getUsername().equals("张三");
+        }).collect(Collectors.toList());
+        System.out.println(collect);
     }
     
 

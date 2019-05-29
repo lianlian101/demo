@@ -5,7 +5,6 @@ import java.util.Arrays;
 import java.util.List;
 
 import org.apache.commons.lang3.ArrayUtils;
-import org.apache.commons.lang3.StringUtils;
 import org.junit.Test;
 
 public class ArrayTest {
@@ -89,6 +88,5 @@ public class ArrayTest {
         System.out.println(b);
         
     }
-    
     
 }

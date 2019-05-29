@@ -200,4 +200,14 @@ public class UserController {
         return m;
     }
     
+    @RequestMapping("log")
+    public String log(){
+        try {
+            //int i = 1/0;
+        } catch (Exception e) {
+            log.error("异常：{}", e.getMessage(), e);
+        }
+        return "hello";
+    }
+    
 }
