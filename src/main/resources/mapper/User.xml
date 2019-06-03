@@ -38,5 +38,83 @@
         </set>
         where id = #{id}
     </update>
+    
+    <insert id="addUsers">
+        insert into user (username, password) values
+        <foreach collection="list" index="index" item="user" separator=",">
+            (#{user.username}, #{user.password})
+        </foreach>
+    </insert>
+    
+    <update id="updateUsers">
+        <!-- 更新一个字段 -->
+        <!-- update user set password = 
+        <foreach collection="list" index="index" item="user" separator=" " open="case id" close="end">
+            when #{user.id} then #{user.password}
+        </foreach>
+        where id in
+        <foreach collection="list" index="index" item="user" separator="," open="(" close=")">
+            #{user.id, jdbcType=INTEGER}
+        </foreach> -->
+        
+        <!-- 更新多个字段 -->
+        <!-- update user 
+        <set>
+            <trim prefix="username = case id" suffix="end,">
+                <foreach collection="list" index="index" item="user" separator=" ">
+                    when #{user.id} then #{user.username}
+                </foreach>
+            </trim>
+            <trim prefix="password = case id" suffix="end,">
+                <foreach collection="list" index="index" item="user" separator=" ">
+                    when #{user.id} then #{user.password}
+                </foreach>
+            </trim>
+        </set>
+        where id in
+        <foreach collection="list" index="index" item="user" separator="," open="(" close=")">
+            #{user.id, jdbcType=INTEGER}
+        </foreach> -->
+        
+        <!-- 更新多个字段，加了非空判断 -->
+        update user
+        <set>
+            <trim prefix="username = case id" suffix="end,">
+                <foreach collection="list" index="index" item="user" separator=" ">
+                    <if test="user.username != null">
+                        when #{user.id} then #{user.username}
+                    </if>
+                    <if test="user.username == null">
+                        when #{user.id} then user.username
+                    </if>
+                </foreach>
+            </trim>
+            <trim prefix="password = case id" suffix="end,">
+                <foreach collection="list" index="index" item="user" separator=" ">
+                    <if test="user.password != null">
+                        when #{user.id} then #{user.password}
+                    </if>
+                    <if test="user.password == null">
+                        when #{user.id} then user.password
+                    </if>
+                </foreach>
+            </trim>
+        </set>
+        where id in
+        <foreach collection="list" index="index" item="user" separator="," open="(" close=")">
+            #{user.id, jdbcType=INTEGER}
+        </foreach>
+    </update>
+    
+    <select id="listUser" resultType="com.mvn.test.entity.User">
+        select id, username, password, createTime from user
+        <where>
+            <if test="id != null"> id = #{id} </if>
+            <if test="username != null"> username = #{username} </if>
+            <if test="password != null"> password = #{password} </if>
+            <if test="createTime != null"> createTime = #{createTime} </if>
+        </where>
+    </select>
+
   
 </mapper>
