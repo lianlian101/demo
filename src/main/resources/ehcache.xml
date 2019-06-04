@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE xml>
+<ehcache xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../config/ehcache.xsd">
+    <diskStore path="java.io.tmpdir"/>
+    <cache name="def"
+            maxElementsInMemory="10000" 
+            eternal="false" 
+            timeToIdleSeconds="120"
+            timeToLiveSeconds="120"
+            maxElementsOnDisk="10000000"
+            diskExpiryThreadIntervalSeconds="120"
+            memoryStoreEvictionPolicy="LRU">
+        <persistence strategy="localTempSwap"/>
+    </cache>
+</ehcache>
+<!-- 
+    diskStore: 指定数据存储位置，java.io.tmpdir默认的临时位置
+    defaultCache: 默认的管理策略
+
+    name: cache的名称
+    maxElementsInMemory: 缓存最大数目，如果放入cache中的元素超过这个数值，有两种情况：
+        1、若overflowToDisk的属性值为true，会将cache中多出的元素放入磁盘文件中。
+        2、若overflowToDisk的属性值为false，会根据memoryStoreEvictionPolicy的策略替换cache中原有的元素。
+    eternal: 缓存是否永久，默认为false，如果设为true，将忽略timeToIdleSeconds和timeToLiveSeconds
+    timeToIdleSeconds: 当缓存闲置n秒后销毁（可选）
+    timeToLiveSeconds: 当缓存存活n秒后销毁（可选）
+    maxElementsOnDisk: 在磁盘上缓存的element的最大数目，默认值为0，表示不限制。
+    diskExpiryThreadIntervalSeconds: 单位是秒，表示检查元素是否过期的线程多久运行一次，默认是120秒。（可选）
+    memoryStoreEvictionPolicy: 当内存里面的元素数量或大小达到指定的限制后将采用的驱除策略。默认是LRU（最近最少使用），可选值还有LFU（最不常使用）和FIFO（先进先出）。（可选）
+    overflowToDisk: boolean类型，默认为false，如果内存中数据超过内存限制，是否要缓存到磁盘上。
+                    当内存里面的缓存已经达到预设的上限时是否允许将按驱除策略驱除的元素保存在硬盘上，默认是LRU（最近最少使用）。
+                    当指定为false的时候表示缓存信息不会保存到磁盘上，只会保存在内存中。该属性现在已经废弃，推荐使用cache元素的子元素persistence来代替，如：<persistence strategy=”localTempSwap”/>。
+    diskPersistent： 是否在磁盘上持久化。指重启jvm后，数据是否有效。默认为false。（可选）
+    diskSpoolBufferSizeMB： DiskStore使用的磁盘大小，默认值30MB。每个cache使用各自的DiskStore。（可选）
+ -->

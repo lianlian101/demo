@@ -27,7 +27,7 @@ public class UserController {
     @Autowired
     private UserService userService;
 
-    @RequestMapping("/index")
+    @RequestMapping("index")
     public String index(@RequestBody String data, HttpServletRequest request, Map<String, String> map){
         
         JsonResult jsonResult = new JsonResult();
@@ -54,7 +54,7 @@ public class UserController {
         
     }
     
-    @RequestMapping("/index2")
+    @RequestMapping("index2")
     @ResponseBody
     public String index2(@RequestBody String data){
         
@@ -66,7 +66,7 @@ public class UserController {
         
     }
     
-    @RequestMapping("/index3")
+    @RequestMapping("index3")
     @ResponseBody
     public String index3(@RequestBody(required=false) String data){
         
@@ -95,14 +95,14 @@ public class UserController {
         return null;
     }
     
-    @RequestMapping("/getUsers")
+    @RequestMapping("getUsers")
     @ResponseBody
     public List<User> getUsers(){
         String names = "zhangsan,lisi";
         return userService.getUsers(names);
     }
     
-    @RequestMapping("/listUser")
+    @RequestMapping("listUser")
     @ResponseBody
     public List<User> getUserList(){
         return userService.getUserList();
@@ -125,7 +125,7 @@ public class UserController {
         return users;
     }
     
-    @RequestMapping("/addUser")
+    @RequestMapping("addUser")
     @ResponseBody
     public Integer addUser(){
         User user = new User();
@@ -137,7 +137,7 @@ public class UserController {
         return m;
     }
     
-    @RequestMapping("/server")
+    @RequestMapping("server")
     @ResponseBody
     public String server(HttpServletRequest request){
         
@@ -150,7 +150,7 @@ public class UserController {
         return url;
     }
     
-    @RequestMapping(value={"/getUserInfo/{id}","/getUserInfo"})
+    @RequestMapping(value={"getUserInfo/{id}","getUserInfo"})
     @ResponseBody
     public User getUserInfo(@PathVariable(required=false,name="id")Integer id){
         System.out.println("id = "+id);
@@ -158,7 +158,7 @@ public class UserController {
         return user;
     }
     
-    @RequestMapping("/insert")
+    @RequestMapping("insert")
     @ResponseBody
     public String insert(){
         String str = "{\"username\":\"张三\",\"password\":\"123\",\"createTime\":\"2019-04-12\",\"code\":\"0\",\"msg\":\"信息\"}";
@@ -174,13 +174,13 @@ public class UserController {
         return str;
     }
     
-    @RequestMapping("/fuzzySearch")
+    @RequestMapping("fuzzySearch")
     @ResponseBody
     public List<User> fuzzySearch(@RequestParam String param){
         return userService.fuzzySearch(param);
     }
     
-    @RequestMapping("/arrTest")
+    @RequestMapping("arrTest")
     @ResponseBody
     public String arrTest(@RequestParam("ids[]")Integer[] ids, @RequestParam("status")String status){
         System.out.println(Arrays.asList(ids));
@@ -209,5 +209,6 @@ public class UserController {
         }
         return "hello";
     }
+    
     
 }

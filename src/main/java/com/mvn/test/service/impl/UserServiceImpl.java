@@ -3,6 +3,8 @@ package com.mvn.test.service.impl;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import com.mvn.test.dao.UserDao;
@@ -25,11 +27,13 @@ public class UserServiceImpl implements UserService {
         return userDao.getUsers(names);
     }
 
+    @Cacheable(value="def", key="#root.methodName+#root.targetClass")
     @Override
     public List<User> getUserList() {
         return userDao.getUserList();
     }
     
+    @CacheEvict(value="def", allEntries=true)
     @Override
     public Integer addUser(User user) {
         return userDao.addUser(user);
