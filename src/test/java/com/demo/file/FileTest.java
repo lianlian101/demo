@@ -4,17 +4,22 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.util.ArrayList;
 import java.util.Base64;
+import java.util.List;
 import java.util.Base64.Decoder;
 import java.util.Base64.Encoder;
 import java.util.Random;
 
 import org.apache.ibatis.javassist.compiler.ast.NewExpr;
+import org.apache.tomcat.jni.User;
+import org.apache.xmlbeans.impl.xb.xsdschema.Public;
 import org.apache.xmlbeans.impl.xb.xsdschema.impl.PublicImpl;
 import org.junit.Test;
 
@@ -77,4 +82,64 @@ public class FileTest {
         return encoder.encodeToString(data);
     }
 
+    @Test
+    public void file() {
+        File file = new File("D:\\picture");
+        File[] files = file.listFiles();
+        for (File f : files) {
+            boolean b1 = f.isDirectory();
+            boolean b2 = f.isFile();
+            System.out.println("目录：" + b1 + "，文件：" + b2);
+            System.out.println(f.getName());
+            System.out.println("----------------------");
+        }
+    }
+
+    //-------------------------------------------------------------------------------
+    
+    // 保存符合条件的文件的名字
+    private static List<String> list = new ArrayList<String>();
+
+    /**
+     * @param path 文件路径
+     * @param name 后缀名；如：.xml, .jpg, .txt, ...
+     */
+    public static void getFileName(String path, String name) {
+        File file = new File(path);
+        if (file != null) {
+            // 判断是否是文件夹
+            if (file.isDirectory()) {
+                // 遍历文件夹中的文件
+                for (File f : file.listFiles()) {
+                    // 判断文件夹中的文件是否是文件夹
+                    if (f.isDirectory()) {
+                        // 递归
+                        getFileName(f.getAbsolutePath(), name);
+                    } else {
+                        // 判断文件的后缀是否符合条件，符合条件则将文件的名字放入集合
+                        if (f.getName().endsWith(name)) {
+                            list.add(f.getName());
+                        }
+                    }
+                }
+            } else {
+                // 判断文件的后缀是否符合条件，符合条件则将文件的名字放入集合
+                if (file.getName().endsWith(name)) {
+                    list.add(file.getName());
+                }
+            }
+        }
+    }
+
+    public static void main(String[] args) {
+        // 调用方法
+        getFileName("D:/files", ".xml");
+        // 打印集合中的所有元素
+        System.out.println(list); 
+        // 打印集合的长度
+        System.out.println(list.size());
+    }
+
+    //--------------------------------------------------------------------------------
+    
 }

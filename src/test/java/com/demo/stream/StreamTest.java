@@ -13,7 +13,6 @@ import java.util.TreeSet;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.function.Function;
 import java.util.function.Predicate;
-import java.util.stream.Collector;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -190,5 +189,23 @@ public class StreamTest {
         return t -> seen.putIfAbsent(keyExtractor.apply(t), Boolean.TRUE) == null;
     } 
 
+    // 交集、差集
+    @Test
+    public void demo9(){
+        ArrayList<Long> a = new ArrayList<>();
+        a.add(10L);
+        a.add(12L);
+        a.add(299L);
+        a.add(300L);
+        ArrayList<Long> b = new ArrayList<>();
+        b.add(12L);
+        b.add(299L);
+        b.add(400L);
+        List<Long> intersection = a.parallelStream().filter(x->b.contains(x)).collect(Collectors.toList());
+        System.out.println(intersection);
+        List<Long> intersection2 = a.parallelStream().filter(x->!intersection.contains(x)).collect(Collectors.toList());
+        System.out.println(intersection2);
+    }
+  
     
 }
