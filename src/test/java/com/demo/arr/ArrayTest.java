@@ -96,8 +96,6 @@ public class ArrayTest {
         Long[] b = {100L, 466L, 10L};
         Object[] array = Arrays.stream(a).distinct().filter(x -> Arrays.stream(b).anyMatch(y -> y.equals(x))).toArray();
         System.out.println(Arrays.asList(array));
-        Object[] array2 = Arrays.stream(a).distinct().filter(x -> Arrays.stream(array).anyMatch(y -> !y.equals(x))).toArray();
-        System.out.println(Arrays.asList(array2));
     }
     
     
