@@ -54,6 +54,19 @@
 		});
 	}
 	
+	function jqSer(){
+		var dd = $('#ff').serialize();
+		console.log(dd);
+		$.ajax({
+			url:"/user/serialize",
+			data:dd,
+			type:"post",
+			success:function(data){
+				console.log(data);
+			}
+		});
+	}
+	
 </script>
 <style type="text/css">
     div {
@@ -80,5 +93,13 @@
     <input id="jq" type="button" value="jq测试" onclick="jqtest()">
     
     <input type="button" value="数组" onclick="arrTest()">
+    
+    <div>
+        <form id="ff" action="javascript:void(0);">
+            <input id="username" type="text" name="username">
+            <input id="password" type="text" name="password">        
+            <input type="button" value="jq序列化测试" onclick="jqSer()">
+        </form>
+    </div>
 </body>
 </html>

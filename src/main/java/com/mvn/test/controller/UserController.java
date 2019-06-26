@@ -2,8 +2,11 @@ package com.mvn.test.controller;
 
 import java.util.Arrays;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -223,5 +226,29 @@ public class UserController {
         System.out.println(userArr);
         return userArr;
     }
+    
+    @RequestMapping("serialize")
+    @ResponseBody
+    public Object serialize(User user){
+        return user;
+    }
+    
+    @RequestMapping("getParamMap")
+    @ResponseBody
+    public Map<String, String[]> getParamMap(HttpServletRequest request){
+        Map<String, String[]> parameterMap = request.getParameterMap();
+        Map<String, String[]> map = new HashMap<>();
+        Iterator<Entry<String, String[]>> iterator = parameterMap.entrySet().iterator();
+        while (iterator.hasNext()) {
+            Entry<String, String[]> entry = iterator.next();
+            String key = entry.getKey();
+            String[] value = entry.getValue();
+            if(!(value != null && value.length == 1 && value[0].equals(""))){
+                map.put(key, value);
+            }
+        }
+        return map;
+    }
+    
     
 }

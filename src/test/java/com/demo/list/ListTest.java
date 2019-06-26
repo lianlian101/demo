@@ -1,6 +1,7 @@
 package com.demo.list;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
@@ -8,6 +9,7 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 import org.apache.commons.lang3.StringUtils;
@@ -150,5 +152,41 @@ public class ListTest {
         System.out.println(collect);
     }
     
-
+    /**
+     * 创建日期: 2019年6月26日 创建人: zhb 说明: 迭代测试
+     *
+     */
+    @Test
+    public void demo6(){
+        String[] ss = {"java","mysql","js","java","java"};
+        List<String> list = Arrays.asList(ss);
+        Iterator<String> iterator = list.iterator();
+        if(iterator.hasNext()){
+            while (iterator.hasNext()) {
+                System.out.println(iterator.next());
+            }
+        }
+    }
+    
+    /**
+     * 创建日期: 2019年6月26日 创建人: zhb 说明: 判断数据是否存在集合中
+     *
+     */
+    @Test
+    public void demo7(){
+        Set<Long> set = new HashSet<Long>();
+        set.add(12L);
+        set.add(300L);
+        set.add(90L);
+        
+        Set<Long> set2 = new HashSet<Long>();
+        set2.add(12L);
+        set2.add(300L);
+        set2.add(20L);
+        
+        boolean b = set.contains(300L);
+        System.out.println(b);
+    }
+    
+    
 }

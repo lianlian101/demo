@@ -80,22 +80,34 @@ public class ArrayTest {
      */
     @Test
     public void demo5(){
-        
         String[] arr = {};
         System.out.println(Arrays.asList(arr));
-        
         boolean b = ArrayUtils.isEmpty(arr);
         System.out.println(b);
-        
     }
     
-    // 求交集
+    /**
+     * 创建日期: 2019年6月24日 创建人: zhb 说明: 求交集
+     *
+     */
     @Test
     public void demo6(){
         Long[] a = {12L, 100L, 466L};
         Long[] b = {100L, 466L, 10L};
         Object[] array = Arrays.stream(a).distinct().filter(x -> Arrays.stream(b).anyMatch(y -> y.equals(x))).toArray();
         System.out.println(Arrays.asList(array));
+    }
+    
+    /**
+     * 创建日期: 2019年6月24日 创建人: zhb 说明: 空数组和数组有一个元素且为空字符串区别
+     *
+     */
+    @Test
+    public void demo7(){
+        String[] x = {};
+        String[] y = {""};
+        System.out.println("x = " + Arrays.asList(x) + ", x.length = " + x.length);
+        System.out.println("y = " + Arrays.asList(y) + ", y.length = " + y.length);
     }
     
     
