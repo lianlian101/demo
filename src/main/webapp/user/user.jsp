@@ -101,5 +101,20 @@
             <input type="button" value="jq序列化测试" onclick="jqSer()">
         </form>
     </div>
+    
+    <script type="text/javascript">
+        var user = '<%=request.getAttribute("user")%>'; // 对象字符串 -> User [id=1, username=张三]
+        var json = <%=request.getAttribute("json")%>; // json对象 -> {id:1,name:"张三"}
+        var str = <%=request.getAttribute("str")%>; // json字符串 -> {"id":1,"name":"张三"}
+    
+        var user2 = '${user}'; // 对象字符串 -> User [id=1, username=张三]
+        var json2 = '${json}'; // json字符串 -> {"id":1,"name":"张三"}
+    
+        // 报错写法
+        // var user = <%=request.getAttribute("user")%> // Uncaught SyntaxError: Unexpected identifier
+        // var json = "${json}" // Uncaught SyntaxError: Unexpected identifier
+        // var str = '${str}'; // Uncaught SyntaxError: Unexpected token {
+        // var str = "${str}"; // Uncaught SyntaxError: Unexpected identifier
+    </script>
 </body>
 </html>

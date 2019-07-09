@@ -1,6 +1,8 @@
 package com.demo.string;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.StringUtils;
@@ -132,5 +134,19 @@ public class StringTest {
         System.out.println(b);
     }
 
+    /**
+     * 创建日期: 2019年7月9日 创建人: zhb 说明: String.join(char, arr)
+     *
+     */
+    @Test
+    public void demo10(){
+        List<String> list = new ArrayList<String>();
+        list.add("java");
+        list.add("mysql");
+        list.add("javascript");
+        String str = String.join(",", list);
+        System.out.println(str);
+    }
+    
     
 }
