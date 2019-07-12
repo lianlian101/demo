@@ -1,24 +1,21 @@
 package com.demo.file;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import org.dom4j.Attribute;
 import org.dom4j.Document;
 import org.dom4j.DocumentException;
 import org.dom4j.Element;
 import org.dom4j.io.OutputFormat;
 import org.dom4j.io.SAXReader;
 import org.dom4j.io.XMLWriter;
+import org.junit.Test;
 
 public class Dom4jTest {
 
@@ -39,10 +36,10 @@ public class Dom4jTest {
      * 创建日期: 2019年6月12日 创建人: zhb 说明: 对元素操作
      * 
      * @param document
-     * @throws IOException 
+     * @throws Exception 
      */
     @SuppressWarnings("unchecked")
-    public static void getElements(Document document, String path) throws IOException{
+    public static void getElements(Document document, String path) throws Exception{
         // 父节点
         Element root = document.getRootElement();
         // 父节点下的所有子节点
@@ -67,26 +64,66 @@ public class Dom4jTest {
             Object value = el.attribute("id").getData();
             if(!routmap.contains(value)){
                 elements.remove(el);
+                //el.getParent().remove(el);
             }
         }
         // 回写
+        writeBack(document, path);
+    }
+    
+    // 回写
+    public static void writeBack(Document document, String path) throws Exception{
         OutputFormat format = OutputFormat.createPrettyPrint(); 
         XMLWriter xmlWriter = new XMLWriter(new FileOutputStream(path),format); 
         xmlWriter.write(document); 
-        xmlWriter.close(); 
+        xmlWriter.close();
     }
     
     /**
      * 创建日期: 2019年6月12日 创建人: zhb 说明: 测试
      * 
      * @param args
-     * @throws DocumentException 
-     * @throws IOException 
+     * @throws Exception 
      */
-    public static void main(String[] args) throws DocumentException, IOException {
+    public static void main(String[] args) throws Exception {
         String path = "D:/files/demo.xml";
         Document document = getDocument(path);
         getElements(document,path);
+    }
+    
+    //================================================================================================
+    
+    private static List<String> list = new ArrayList<>(Arrays.asList("java","sql","js"));
+    
+    @Test
+    public void demo() throws Exception{
+        String path = "D:/files/demo.xml";
+        Document document = getDocument(path);
+        Element rootElement = document.getRootElement();
+        delNode(rootElement);
+        writeBack(document, path);
+    }
+    
+    // 删除节点
+    public static void delNode(Element element) throws IOException {
+        if(element != null){
+            @SuppressWarnings("unchecked")
+            List<Element> elements = element.elements();
+            // 判断是否有子节点
+            if (elements != null && !elements.isEmpty()) {
+                for (Element el : elements) {
+                    delNode(el);
+                }
+            }
+            if(!element.isRootElement()){
+                String name = element.attribute("name").getStringValue();
+                if (name != null && !"".equals(name)) {
+                    if (!list.contains(name)) {
+                        element.getParent().remove(element);
+                    }
+                }
+            }
+        }
     }
     
 }
