@@ -17,13 +17,18 @@ import org.dom4j.Element;
 import org.dom4j.io.OutputFormat;
 import org.dom4j.io.SAXReader;
 import org.dom4j.io.XMLWriter;
-import org.junit.Test;
 
 public class FileDemo2 {
 
     // 检索范围
     private static List<String> retrieveFiles = new ArrayList<String>(Arrays.asList(
-            "welcomePageMenu.xml", "homePageFiveMiniJpg.xml", "nodeMenuCompJpg.xml", "nodeMenuJpg.xml", "flipPageJpg.xml"));
+            "welcomePageMenu.xml","homepageFiveMiniJpg.xml","nodeMenuCompJpg.xml",
+            "nodeMenuCompTwoJpg.xml","nodeMenuJpg.xml","nodeMenuMiniJpg.xml",
+            "redirect.xml","hotelServiceTwo","hotelServiceThree","Moviejpg.xml",
+            "movieMobilPayJpg.xml","bookFlipPageJpg.xml","weatherJpg.xml",
+            "weatherTwoJpg.xml","inRoomPage.xml","myccountJpg.xml","messageJpg.xml",
+            "worldTimeClockJpg.xml","questionnaireJpg.xml","flipPageMiniJpg.xml",
+            "flipPageSteJpg.xml","advideo.xml","routemap.xml"));
     
     // 项目所在路径
     private static String projectPath = "D:/files/project";
@@ -37,11 +42,11 @@ public class FileDemo2 {
     /**
      * 测试
      * 
+     * @param args
      * @throws Exception
      */
-    @Test
-    public void demo() throws Exception {
-        // 备份
+    public static void main(String[] args) throws Exception {
+     // 备份
         fileOperation(projectPath);
         // 删除不匹配的文件
         delFile(searchFilePath, delRecordPath);
@@ -50,7 +55,7 @@ public class FileDemo2 {
         Element rootElement = document.getRootElement();
         // 删除不符合条件的node节点
         delNode(rootElement);
-        writeBack(document, "D:/files/routemap2.xml");
+        writeBack(document, compareFile);
     }
 
     /**
@@ -251,6 +256,6 @@ public class FileDemo2 {
             }
         }
     }
-
+    
     
 }
