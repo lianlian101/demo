@@ -10,7 +10,12 @@ import java.io.OutputStreamWriter;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
+import java.util.function.Function;
+import java.util.stream.Collectors;
 
+import org.dom4j.Attribute;
 import org.dom4j.Document;
 import org.dom4j.DocumentException;
 import org.dom4j.Element;
@@ -36,8 +41,13 @@ public class FileDemo2 {
     private static String searchFilePath = "D:/files/deploy/uiinit";
     // 要记录删除痕迹的文件的路径
     private static String delRecordPath = "D:/files/trail.txt";
+    // 记录重复的id的文件的路径
+    private static String recordRepetitionIdFilePath = "D:/files/wrong.txt";
     // routemap文件所在路径
     private static String compareFile = "D:/files/routemap.xml";
+    
+    // routemap.xml中所有节点中的id的值
+    private static List<String> idValues = new ArrayList<String>();
 
     /**
      * 测试
@@ -56,6 +66,11 @@ public class FileDemo2 {
         // 删除不符合条件的node节点
         delNode(rootElement);
         writeBack(document, compareFile);
+        // 删除xml中不对应的id
+        getIdOfValueAll(rootElement, idValues);
+        delXmlFileByIdNottoId(searchFilePath, delRecordPath);
+        // 记录xml中重复的id
+        recordRepetitionId(searchFilePath, recordRepetitionIdFilePath);
     }
 
     /**
@@ -253,6 +268,105 @@ public class FileDemo2 {
                       element.getParent().remove(element);
                   }
               }
+            }
+        }
+    }
+    
+    /**
+     * 获取xml中所有节点的id属性的值
+     *
+     */
+    public static void getIdOfValueAll(Element element, List<String> list){
+        if (element != null) {
+            @SuppressWarnings("unchecked")
+            List<Element> elements = element.elements();
+            if(elements != null){
+                for (Element el : elements) {
+                    getIdOfValueAll(el, list);
+                }
+            }
+            Attribute id = element.attribute("id");
+            if(id != null){
+                String value = id.getStringValue();
+                if(value != null && !"".equals(value)){
+                    list.add(value);
+                }
+            }
+        }
+    }
+    
+    /**
+     * 删除文件中id值不对应routemap.xml中id的值的id
+     * 
+     * @param path
+     * @throws Exception 
+     */
+    public static void delXmlFileByIdNottoId(String searchFilePath, String delRecordPath) throws Exception{
+        File file = new File(searchFilePath);
+        if (file != null) {
+            if (file.isDirectory()) {
+                File[] files = file.listFiles();
+                for (File f : files) {
+                    delXmlFileByIdNottoId(f.getAbsolutePath(), delRecordPath);
+                }
+            } else {
+                String fileName = file.getName();
+                if(!"routemap.xml".equals(fileName)){
+                    Document document = getDocument(searchFilePath);
+                    Element rootElement = document.getRootElement();
+                    del(file.getName(), rootElement, delRecordPath);
+                    writeBack(document, searchFilePath);
+                }
+            }
+        }
+    }
+    public static void del(String fileName, Element element, String delRecordPath) throws Exception{
+        @SuppressWarnings("unchecked")
+        List<Element> elements = element.elements();
+        if(elements != null && elements.size() > 0){
+            for (Element el : elements) {
+                del(fileName,el,delRecordPath);
+            }
+        }
+        Attribute id = element.attribute("id");
+        if(id != null && !"".equals(id)){
+            String value = id.getStringValue();
+            if(!idValues.contains(value)){
+                element.getParent().remove(element);
+                writeDataForTrail(delRecordPath,"文件["+fileName+"]删除了id="+value+"的节点");
+            }
+        }
+    }
+    
+    /**
+     * 记录重复的id
+     * @throws Exception 
+     *
+     */
+    public static void recordRepetitionId(String searchFilePath, String recordRepetitionIdFilePath) throws Exception{
+        File file = new File(searchFilePath);
+        if (file != null) {
+            if (file.isDirectory()) {
+                File[] files = file.listFiles();
+                for (File f : files) {
+                    recordRepetitionId(f.getAbsolutePath(), recordRepetitionIdFilePath);
+                }
+            } else {
+                String fileName = file.getName();
+                if(!"routemap.xml".equals(fileName)){
+                    Document document = getDocument(searchFilePath);
+                    Element rootElement = document.getRootElement();
+                    ArrayList<String> list = new ArrayList<String>();
+                    getIdOfValueAll(rootElement, list);
+                    Map<String, Long> map = list.stream().collect(Collectors.groupingBy(Function.identity(), Collectors.counting()));
+                    Set<String> keySet = map.keySet();
+                    for (String key : keySet) {
+                        Long value = map.get(key);
+                        if(value > 1L){
+                            writeDataForTrail(recordRepetitionIdFilePath, "文件["+fileName+"]中id="+key+"的节点重复，重复个数为："+map.get(key));
+                        }
+                    }
+                }
             }
         }
     }
