@@ -39,6 +39,18 @@ public class StreamTest {
         Integer[] evens = Stream.of(sixNums).filter(n -> n % 2 == 0).toArray(Integer[]::new);
 
         System.out.println(Arrays.asList(evens));
+        
+        // 根据条件过滤
+        List<Integer> filterNums = new ArrayList<>(Arrays.asList(1,3,5,7,9));
+        // 移除符合条件的元素
+        filterNums.removeIf(x -> x > 5);
+//        filterNums.removeIf(new Predicate<Integer>() {
+//            @Override
+//            public boolean test(Integer t) {
+//                return t > 5;
+//            }
+//        });
+        System.out.println(filterNums);
 
     }
 
@@ -161,17 +173,17 @@ public class StreamTest {
      * 创建日期: 2019年5月22日 创建人: zhb 说明: 根据对象的指定属性去重
      *
      */
+    @SuppressWarnings("unchecked")
     @Test
     public void demo8(){
         List<User> list = new ArrayList<User>();
         list.add(new User(1, "张三", "123", new Date()));
         list.add(new User(2, "李四", "123", new Date()));
         list.add(new User(3, "王五", "123", new Date()));
-        list.add(new User(1, "张三", "123", new Date()));
+        list.add(new User(1, "李四", "123", new Date()));
         list.add(new User(1, "张三", "123", new Date()));
         
         // 方式一
-        @SuppressWarnings("unchecked")
         ArrayList<User> collect = list.stream().collect(Collectors.collectingAndThen(Collectors.toCollection(
                 // 利用  TreeSet 的排序去重构造函数来达到去重元素的目的
                 () -> new TreeSet<>(Comparator.comparing(User::getId))), ArrayList::new));
@@ -181,6 +193,11 @@ public class StreamTest {
         System.out.println(collect);
         System.out.println(filter);
       
+        // 根据多个属性去重
+        ArrayList<User> filter2 = list.stream().collect(Collectors.collectingAndThen(Collectors.toCollection(
+                () -> new TreeSet<>(Comparator.comparing(u -> u.getId() + ";" + u.getUsername()))), ArrayList::new));
+        System.out.println(filter2);
+        
     }
     
     // 去重方法
