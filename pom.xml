@@ -20,7 +20,6 @@
 	</properties>
 
 	<dependencies>
-
 		<!-- web支持 -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
@@ -153,44 +152,40 @@
 			<artifactId>druid-spring-boot-starter</artifactId>
 			<version>1.1.6</version>
 		</dependency>
-		
+
 		<!-- 集成ehcache -->
 		<dependency>
-		    <groupId>org.springframework.boot</groupId>
-		    <artifactId>spring-boot-starter-cache</artifactId>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-cache</artifactId>
 		</dependency>
 		<dependency>
-		    <groupId>net.sf.ehcache</groupId>
-		    <artifactId>ehcache</artifactId>
+			<groupId>net.sf.ehcache</groupId>
+			<artifactId>ehcache</artifactId>
 		</dependency>
-		
+
 		<!-- 操作xml文档 -->
 		<dependency>
-		    <groupId>dom4j</groupId>
-		    <artifactId>dom4j</artifactId>
+			<groupId>dom4j</groupId>
+			<artifactId>dom4j</artifactId>
 		</dependency>
-		
+
 		<!-- 热启动 -->
 		<!-- <dependency> <groupId>org.springframework.boot</groupId> <artifactId>spring-boot-devtools</artifactId> 
 			<optional>true</optional> </dependency> -->
 		<!-- log4j依赖 -->
-		<!-- <dependency> <groupId>org.slf4j</groupId> <artifactId>slf4j-api</artifactId> 
-			</dependency> <dependency> <groupId>org.slf4j</groupId> <artifactId>slf4j-log4j12</artifactId> 
-			</dependency> <dependency> <groupId>log4j</groupId> <artifactId>log4j</artifactId> 
-			<version>1.2.16</version> </dependency> -->
-		<!-- email -->
-		<!-- <dependency> <groupId>javax.mail</groupId> <artifactId>javax.mail-api</artifactId> 
-			<version>1.5.2</version> <type>jar</type> <scope>compile</scope> </dependency> 
-			<dependency> <groupId>com.sun.mail</groupId> <artifactId>smtp</artifactId> 
-			<version>1.5.2</version> <type>jar</type> <scope>compile</scope> </dependency> 
-			<dependency> <groupId>com.sun.mail</groupId> <artifactId>mailapi</artifactId> 
-			<version>1.5.2</version> <type>jar</type> <scope>compile</scope> </dependency> -->
-		<!-- 阿里信息服务 -->
-		<!-- <dependency> <groupId>com.aliyun</groupId> <artifactId>aliyun-java-sdk-core</artifactId> 
-			<version>4.0.6</version> </dependency> <dependency> <groupId>com.aliyun</groupId> 
-			<artifactId>aliyun-java-sdk-dysmsapi</artifactId> <version>1.1.0</version> 
-			</dependency> -->
-
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-api</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-log4j12</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>log4j</groupId>
+			<artifactId>log4j</artifactId>
+			<version>1.2.16</version>
+		</dependency>
 	</dependencies>
 
 	<build>
