@@ -26,6 +26,14 @@ public class Department implements Serializable{
         super();
     }
 
+    public Department(Integer id, String depName, Integer parentId, Integer companyId) {
+        super();
+        this.id = id;
+        this.depName = depName;
+        this.parentId = parentId;
+        this.companyId = companyId;
+    }
+
     public Department(Integer id, String depName, Integer parentId, Integer companyId, List<Department> departments, List<User> users) {
         super();
         this.id = id;
