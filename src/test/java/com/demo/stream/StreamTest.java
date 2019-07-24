@@ -177,11 +177,11 @@ public class StreamTest {
     @Test
     public void demo8(){
         List<User> list = new ArrayList<User>();
-        list.add(new User(1, "张三", "123", new Date()));
-        list.add(new User(2, "李四", "123", new Date()));
-        list.add(new User(3, "王五", "123", new Date()));
-        list.add(new User(1, "李四", "123", new Date()));
-        list.add(new User(1, "张三", "123", new Date()));
+        list.add(new User(1, "张三", "123", new Date(),1));
+        list.add(new User(2, "李四", "123", new Date(),1));
+        list.add(new User(3, "王五", "123", new Date(),1));
+        list.add(new User(1, "李四", "123", new Date(),1));
+        list.add(new User(1, "张三", "123", new Date(),1));
         
         // 方式一
         ArrayList<User> collect = list.stream().collect(Collectors.collectingAndThen(Collectors.toCollection(

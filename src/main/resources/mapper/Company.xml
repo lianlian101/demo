@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mvn.test.dao.CompanyDao">
+
+	<resultMap id="company" type="com.mvn.test.entity.Company">
+		<result column="companyId" property="id" jdbcType="INTEGER" />
+		<result column="companyName" property="companyName" jdbcType="VARCHAR" />
+		<collection property="departments" ofType="com.mvn.test.entity.Department">
+			<result column="depId" property="id" jdbcType="INTEGER" />
+			<result column="parentId" property="parentId" jdbcType="INTEGER" />
+			<result column="depName" property="depName" jdbcType="VARCHAR" />
+			<result column="depCompanyId" property="companyId" jdbcType="INTEGER" />
+			<collection property="users" ofType="com.mvn.test.entity.User">
+				<result column="userId" property="id" jdbcType="INTEGER" />
+				<result column="username" property="username" jdbcType="VARCHAR" />
+				<result column="userDepId" property="depId" jdbcType="INTEGER" />
+			</collection>
+			<collection column="depId" jdbcType="INTEGER" property="departments" select="selectDepartments" />
+		</collection>
+	</resultMap>
+	<select id="listCompany" resultMap="company">
+		select t.id as companyId, t.companyName, 
+		    t2.id as depId, t2.parentId, t2.depName, t2.companyId as depCompanyId,
+		    t3.id as userId, t3.username, t3.depId as userDepId 
+		from company t
+		left join (select * from department where parentId = 0) t2 on t.id = t2.companyId
+		left join user t3 on t2.id = t3.depId
+	</select>
+
+	<resultMap type="com.mvn.test.entity.Department" id="department">
+		<result column="depId" property="id" jdbcType="INTEGER" />
+		<result column="depName" property="depName" jdbcType="VARCHAR" />
+		<result column="parentId" property="parentId" jdbcType="INTEGER" />
+		<result column="companyId" property="companyId" jdbcType="INTEGER" />
+		<collection property="users" ofType="com.mvn.test.entity.User">
+			<result column="userId" property="id" jdbcType="INTEGER" />
+			<result column="username" property="username" jdbcType="VARCHAR" />
+			<result column="userDepId" property="depId" jdbcType="INTEGER" />
+		</collection>
+		<collection column="depId" jdbcType="INTEGER" property="departments" select="selectDepartments" />
+	</resultMap>
+	<select id="selectDepartments" resultMap="department">
+		select t.id as depId, t.depName, t.parentId, t.companyId,
+		    t2.id as userId, t2.username, t2.depId as userDepId
+		from department t 
+		left join user t2 on t.id = t2.depId
+		where t.parentId = #{depId}
+	</select>
+
+</mapper>

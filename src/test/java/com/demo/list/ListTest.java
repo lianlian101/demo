@@ -138,9 +138,9 @@ public class ListTest {
      */
     @Test
     public void demo5(){
-        User user = new User(1,"张三","123", new Date());
-        User user2 = new User(2,"张三","456", new Date());
-        User user3 = new User(3,"李四","123", new Date());
+        User user = new User(1,"张三","123", new Date(),1);
+        User user2 = new User(2,"张三","456", new Date(),1);
+        User user3 = new User(3,"李四","123", new Date(),1);
         List<User> list = new ArrayList<User>();
         list.add(user);
         list.add(user2);

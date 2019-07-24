@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mvn.test.dao.DepartmentDao">
+
+	<resultMap id="department" type="com.mvn.test.entity.Department">
+		<result column="id" property="id" jdbcType="INTEGER" />
+		<result column="depName" property="depName" jdbcType="VARCHAR" />
+		<result column="parentId" property="parentId" jdbcType="INTEGER" />
+		<result column="companyId" property="companyId" jdbcType="INTEGER" />
+		<collection column="id" jdbcType="INTEGER" property="departments" select="selectDepartmentByParentId" />
+	</resultMap>
+	
+	<select id="listDepartment" resultMap="department">
+		select id, depName, parentId, companyId from department where parentId = 0
+	</select>
+
+	<select id="selectDepartmentByParentId" resultMap="department">
+		select id, depName, parentId, companyId from department where parentId = #{id}
+	</select>
+
+</mapper>

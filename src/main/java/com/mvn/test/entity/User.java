@@ -18,16 +18,19 @@ public class User implements Serializable{
     
     private Date createTime;
     
+    private Integer depId;
+    
     public User() {
         super();
     }
-
-    public User(Integer id, String username, String password, Date createTime) {
+    
+    public User(Integer id, String username, String password, Date createTime, Integer depId) {
         super();
         this.id = id;
         this.username = username;
         this.password = password;
         this.createTime = createTime;
+        this.depId = depId;
     }
 
     public Integer getId() {
@@ -62,9 +65,17 @@ public class User implements Serializable{
         this.createTime = createTime;
     }
 
+    public Integer getDepId() {
+        return depId;
+    }
+
+    public void setDepId(Integer depId) {
+        this.depId = depId;
+    }
+
     @Override
     public String toString() {
-        return "User [id=" + id + ", username=" + username + ", password=" + password + ", createTime=" + createTime + "]";
+        return "User [id=" + id + ", username=" + username + ", password=" + password + ", createTime=" + createTime + ", depId=" + depId + "]";
     }
 
 

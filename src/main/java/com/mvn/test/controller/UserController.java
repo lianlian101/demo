@@ -252,7 +252,7 @@ public class UserController {
     
     @RequestMapping("req")
     public String req(HttpServletRequest request){
-        User user = new User(1,"张三","123",new Date());
+        User user = new User(1,"张三","123",new Date(),1);
         request.setAttribute("user", user);
         request.setAttribute("json", JSON.toJSON(user));
         String str = "'{\"id\":1,\"username\":\"张三\",\"password\":\"123\",\"createTime\":1562639744333}'";

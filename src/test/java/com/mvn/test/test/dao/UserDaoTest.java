@@ -40,38 +40,6 @@ public class UserDaoTest {
     }
     
     @Test
-    public void addUsers(){
-        try {
-            List<User> list = new ArrayList<>();
-            User user1 = new User(null,"添加1","good",null);
-            User user2 = new User(null,"添加2","good",null);
-            User user3 = new User(null,"添加3","good",null);
-            list.add(user1);
-            list.add(user2);
-            list.add(user3);
-            Integer m = userDao.addUsers(list);
-            System.out.println(m);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-    
-    @Test
-    public void updateUsers(){
-        try {
-            List<User> list = new ArrayList<>();
-            User user1 = new User(1,"zs","haha",null);
-            User user2 = new User(2,"ls","haha",null);
-            list.add(user1);
-            list.add(user2);
-            Integer m = userDao.updateUsers(list);
-            System.out.println(m);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-    
-    @Test
     public void listUser(){
         try {
             User user = new User();
