@@ -16,6 +16,8 @@ public interface UserService {
     
     List<User> fuzzySearch(String param);
     
+    List<User> fuzzySearch2(String param);
+    
     Integer upateUser(User user);
     
 }

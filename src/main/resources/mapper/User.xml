@@ -24,6 +24,10 @@
         select * from user where username like concat('%',#{param},'%')
     </select>
     
+    <select id="fuzzySearch2" resultType="User">
+        select * from user where username like "%"#{param}"%";
+    </select>
+    
     <update id="updateUser">
         update user 
         <!-- <trim prefix="set" suffixOverrides=",">

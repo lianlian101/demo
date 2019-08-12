@@ -23,6 +23,9 @@ public interface UserDao {
     // 模糊查询
     List<User> fuzzySearch(@Param("param")String param);
     
+    // 模糊查询
+    List<User> fuzzySearch2(@Param("param")String param);
+    
     // 更新
     Integer updateUser(User user);
     

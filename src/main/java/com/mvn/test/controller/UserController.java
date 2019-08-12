@@ -190,6 +190,12 @@ public class UserController {
         return userService.fuzzySearch(param);
     }
     
+    @RequestMapping("fuzzySearch2")
+    @ResponseBody
+    public List<User> fuzzySearch2(@RequestParam String param){
+        return userService.fuzzySearch2(param);
+    }
+    
     @RequestMapping("arrTest")
     @ResponseBody
     public String arrTest(@RequestParam("ids[]")Integer[] ids, @RequestParam("status")String status){

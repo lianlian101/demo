@@ -43,6 +43,11 @@ public class UserServiceImpl implements UserService {
     public List<User> fuzzySearch(String param) {
         return userDao.fuzzySearch(param);
     }
+    
+    @Override
+    public List<User> fuzzySearch2(String param) {
+        return userDao.fuzzySearch2(param);
+    }
 
     @Override
     public Integer upateUser(User user) {
