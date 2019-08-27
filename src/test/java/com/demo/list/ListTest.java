@@ -188,5 +188,29 @@ public class ListTest {
         System.out.println(b);
     }
     
+    /**
+     * 日期：2019年8月22日
+     * 作者：zhb
+     * 说明：向集合中添加对象，对象更改，集合中的元素是否改变
+     * 
+     */
+    @Test
+    public void demo08(){
+        User user = new User();
+        user.setId(1);
+        user.setUsername("张三");
+        user.setPassword("123");
+        System.out.println("user -> "+user);
+        List<User> list = new ArrayList<User>();
+        list.add(user);
+        System.out.println("list -> "+list);
+        user.setUsername("李四");
+        System.out.println("user2 -> " + user);
+        System.out.println("list2 -> " + list);
+        user = null;
+        System.out.println("user3 -> " + user);
+        System.out.println("list3 -> " + list);
+    }
+    
     
 }

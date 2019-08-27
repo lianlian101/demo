@@ -14,6 +14,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -266,5 +267,26 @@ public class UserController {
         return "user/user";
     }
     
+    /**
+     * 日期：2019年8月22日
+     * 作者：zhb
+     * 说明：测试controller层的事务
+     * 
+     * @return
+     */
+    @RequestMapping("transactionTest")
+    @ResponseBody
+    @Transactional
+    public String transactionTest(){
+        User user = new User();
+        user.setUsername("事务测试");
+        userService.addUser(user);
+        int m = 2/0;
+        User user2 = new User();
+        user2.setId(4);
+        user2.setUsername("事务回滚");
+        userService.upateUser(user2);
+        return "success";
+    }
     
 }
