@@ -148,5 +148,18 @@ public class StringTest {
         System.out.println(str);
     }
     
+    /**
+     * 日期：2019年10月22日
+     * 作者：zhb
+     * 说明：StringUtils.isBlank(char)
+     * 
+     */
+    @Test
+    public void demo11(){
+        String str = " abc ";
+        //System.out.println(StringUtils.isEmpty(str));
+        System.out.println(StringUtils.isBlank(str));
+    }
+    
     
 }

@@ -1,6 +1,5 @@
 package com.mvn.test.test.dao;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.junit.Test;

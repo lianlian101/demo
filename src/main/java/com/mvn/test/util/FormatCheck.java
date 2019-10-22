@@ -2,9 +2,7 @@ package com.mvn.test.util;
 
 import java.util.regex.Pattern;
 
-import org.apache.xmlbeans.impl.xb.xsdschema.impl.PublicImpl;
 import org.junit.Test;
-import org.omg.CosNaming.NamingContextExtPackage.StringNameHelper;
 
 /**
  * 创建时间: 2019年3月19日
