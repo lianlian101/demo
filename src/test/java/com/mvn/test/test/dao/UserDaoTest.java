@@ -50,4 +50,15 @@ public class UserDaoTest {
         }
     }
     
+    @Test
+    public void fuzzySearch2(){
+        try {
+            List<User> list = userDao.fuzzySearch2("2");
+            System.out.println(list);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+    
+    
 }

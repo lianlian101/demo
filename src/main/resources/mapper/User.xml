@@ -20,11 +20,11 @@
         values (#{username}, #{password}, #{createTime})
     </insert>
     
-    <select id="fuzzySearch" resultType="User">
+    <select id="fuzzySearch" resultType="com.mvn.test.entity.User">
         select * from user where username like concat('%',#{param},'%')
     </select>
     
-    <select id="fuzzySearch2" resultType="User">
+    <select id="fuzzySearch2" resultType="com.mvn.test.entity.User">
         select * from user where username like "%"#{param}"%";
     </select>
     
