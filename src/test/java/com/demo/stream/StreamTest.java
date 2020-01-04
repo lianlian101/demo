@@ -1,5 +1,6 @@
 package com.demo.stream;
 
+import java.nio.CharBuffer;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Comparator;
@@ -9,6 +10,7 @@ import java.util.LinkedHashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import java.util.TreeSet;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.function.Function;
@@ -19,6 +21,7 @@ import java.util.stream.Stream;
 import org.junit.Test;
 
 import com.mvn.test.entity.User;
+import com.mvn.test.entity.pojo.Example;
 
 public class StreamTest {
 
@@ -206,7 +209,10 @@ public class StreamTest {
         return t -> seen.putIfAbsent(keyExtractor.apply(t), Boolean.TRUE) == null;
     } 
 
-    // 交集、差集
+    /**
+     * 创建日期: 2019年5月22日 创建人: zhb 说明: 交集、差集
+     *
+     */
     @Test
     public void demo9(){
         ArrayList<Long> a = new ArrayList<>();
@@ -223,6 +229,241 @@ public class StreamTest {
         List<Long> intersection2 = a.parallelStream().filter(x->!intersection.contains(x)).collect(Collectors.toList());
         System.out.println(intersection2);
     }
+    
+    /**
+     * 日期：2020年1月4日
+     * 作者：zhb
+     * 说明：对象集合转map集合
+     *
+     */
+    @Test
+    public void demo10(){
+        List<Example> list = getExamples();
+        Map<Integer, String> map = list.parallelStream() // 创建一个并行流
+            .filter(e->e != null) // 过滤为空的对象
+            //.collect(Collectors.toMap(Example::getId, Example::getName));
+            //.collect(Collectors.toMap(e -> e.getId(), e -> e.getName()));
+            .collect(Collectors.toMap(e -> {return e.getId();}, e -> {return e.getName();})); // 转换为map集合
+        // 遍历集合
+        map.forEach((k,v)->{
+            System.out.println(k + "->" + v);
+        });
+    }
   
+    /**
+     * 日期：2020年1月4日
+     * 作者：zhb
+     * 说明：if else 条件转换  ofNullable ofElseGet
+     * 
+     */
+    @Test
+    public void demo11(){
+        List<Example> list = getExamples();
+        List<Example> collect = Optional.ofNullable(list) // 判断不是空继续往下执行
+                .orElseGet(ArrayList::new) // 否则返回该方法中的值
+                .parallelStream() // 创建一个并行流
+                .filter(e-> e.getName().equals("张三")) // 过滤
+                .collect(Collectors.toList()); // 将结果转换为list
+        System.out.println(collect);
+    }
+    
+    /**
+     * 日期：2020年1月4日
+     * 作者：zhb
+     * 说明：将list集合中的数据按照指定的字符拼接为一个字符串
+     * 
+     */
+    @Test
+    public void demo12() {
+        List<String> list = new ArrayList<>();
+        list.add("java");
+        list.add("mysql");
+        list.add("js");
+        String collect = list.parallelStream().collect(Collectors.joining(","));
+        System.out.println(collect);
+    }
+    
+    /**
+     * 日期：2020年1月4日
+     * 作者：zhb
+     * 说明：返回特定结果集
+     * 
+     */
+    @Test
+    public void demo13(){
+        List<String> list = new ArrayList<>(Arrays.asList("0","1","2","3","4","5","6","7","8","9"));
+        List<String> collect = list.parallelStream() // 创建一个并行流
+            .skip(3) // 扔掉前面三个元素
+            .limit(2) // 返回扔掉元素后的结果中的前两个元素
+            .collect(Collectors.toList()); // 转换为集合
+        
+        System.out.println(collect);
+    }
+    
+    /**
+     * 日期：2020年1月4日
+     * 作者：zhb
+     * 说明：对int类型集合元素进行排序
+     * 
+     */
+    @Test
+    public void demo14(){
+        List<Integer> list = new ArrayList<>(Arrays.asList(3,2,7,5,9,1));
+        List<Integer> collect = list.parallelStream().sorted().collect(Collectors.toList()); // 默认升序
+        List<Integer> collect2 = list.parallelStream().sorted((v1,v2)->v2-v1).collect(Collectors.toList());  // 降序
+        System.out.println(collect);
+        System.out.println(collect2);
+    }
+    
+    /**
+     * 日期：2020年1月4日
+     * 作者：zhb
+     * 说明：匹配规则
+     * 
+     */
+    @Test
+    public void demo15(){
+        List<Integer> list = new ArrayList<>(Arrays.asList(3,2,7,5,9,1));
+        boolean b = list.parallelStream().allMatch(c -> c == 1); // 集合中所有元素都符合条件返回true
+        System.out.println(b);
+        boolean b2 = list.parallelStream().anyMatch(c -> c == 1); // 集合中只要有一个元素符合条件返回true
+        System.out.println(b2);
+        boolean b3 = list.parallelStream().noneMatch(c -> c == 0); // 集合中所有元素都不符合条件返回true
+        System.out.println(b3);
+    }
+    
+    /**
+     * 日期：2020年1月4日
+     * 作者：zhb
+     * 说明：对象集合按条件进行分组
+     * 
+     */
+    @Test
+    public void demo16(){
+        List<Example> list = getExamples();
+        Map<Integer, List<Example>> collect = list.parallelStream()
+            .collect(Collectors.groupingBy(Example::getId));
+        
+        System.out.println(collect);
+    }
+    
+    /**
+     * 日期：2020年1月4日
+     * 作者：zhb
+     * 说明：字符串转字符
+     * 
+     */
+    @Test
+    public void demo17() {
+        // 写法一
+        List<String> list = new ArrayList<>(Arrays.asList("a", "b", "zhangsan"));
+        ArrayList<Character> cs = new ArrayList<>();
+        list.parallelStream().map(String::toCharArray)
+            .forEach(s -> {
+                for (Character c : s) {
+                    cs.add(c);
+                }
+            });
+
+        System.out.println(cs);
+
+        // 写法二
+        List<Character> cs2 = list.stream().map(String::toCharArray)
+                // 对转换的char[]数组整合
+                .flatMapToInt(chars -> CharBuffer.wrap(chars).chars())
+                // 转换为char类型
+                .mapToObj(e -> (char) e)
+                // 转为集合存储
+                .collect(Collectors.toList());
+        
+        System.out.println(cs2);
+    }
+    
+    /**
+     * 日期：2020年1月4日
+     * 作者：zhb
+     * 说明：summaryStatistics配合Stream的使用
+     * 
+     */
+    @Test
+    public void demo18(){
+        List<Example> list = getExamples();
+        IntSummaryStatistics ss = list.parallelStream().mapToInt(Example::getId).summaryStatistics();
+        // 最小值
+        System.out.println("最小值: " + ss.getMin());
+        // 最大值
+        System.out.println("最大值: " + ss.getMax());
+        // 求和
+        System.out.println("和: " + ss.getSum());
+        // 计数
+        System.out.println("计数: " + ss.getCount());
+        // 平均值
+        System.out.println("平均值: " + ss.getAverage());
+    }
+    
+    /**
+     * 日期：2020年1月4日
+     * 作者：zhb
+     * 说明：归约
+     * 
+     */
+    @Test
+    public void demo19(){
+        List<Example> list = getExamples();
+        // 求和
+        Integer sum = list.parallelStream().map(Example::getId).reduce(Integer::sum).get();
+        System.out.println("求和: " + sum);
+        // 最小值
+        Integer min = list.parallelStream().map(Example::getId).reduce(Integer::min).get();
+        System.out.println("最小值: " + min);
+        // 最大值
+        Integer max = list.parallelStream().map(Example::getId).reduce(Integer::max).get();
+        System.out.println("最大值: " + max);
+        // 计数
+        long count = list.parallelStream().map(Example::getId).count();
+        System.out.println("计数: " + count);
+        // 平均值
+        double average = list.parallelStream().mapToInt(Example::getId).average().getAsDouble();
+        System.out.println("平均值: " + average);
+    }
+    
+    /**
+     * 日期：2020年1月4日
+     * 作者：zhb
+     * 说明：Integer类型集合的最大值最小值
+     * 
+     */
+    @Test
+    public void demo20() {
+        List<Integer> list = new ArrayList<>(Arrays.asList(0,1,2,3,4,5,6,7,8,9)); //Stream.of(0,1,2,3,4,5,6,7,8,9).collect(Collectors.toList())
+        Integer max = list.parallelStream().max(Comparator.comparing(i -> i)).get();
+        System.out.println("最大值: " + max);
+        Integer min = list.parallelStream().min(Comparator.comparing(i -> i)).get();
+        System.out.println("最小值: " + min);
+        
+        List<String> strs = new ArrayList<>(Arrays.asList("java","mysql","html","js","css"));
+        int asMax = strs.parallelStream().mapToInt(s -> s.length()).max().getAsInt();
+        System.out.println("集合中长度最长的元素的长度: " + asMax);
+        
+        List<String> strs2 = new ArrayList<>(Arrays.asList("java","mysql","html","js","css"));
+        int asMin = strs2.parallelStream().mapToInt(s -> s.length()).min().getAsInt();
+        System.out.println("集合中长度最短的元素的长度: " + asMin);
+        
+        List<String> collect = strs.parallelStream().filter(s -> s.length() == asMax).collect(Collectors.toList());
+        System.out.println("集合中等于最长元素长度的元素: " + collect);
+    }
+    
+    // 获取Example对象集合
+    private List<Example> getExamples(){
+        List<Example> list = new ArrayList<>();
+        Example example = new Example(1, "张三", false);
+        Example example2 = new Example(2, "李四", false);
+        Example example3 = new Example(3, "王五", false);
+        list.add(example);
+        list.add(example2);
+        list.add(example3);
+        return list;
+    }
+    
     
 }
