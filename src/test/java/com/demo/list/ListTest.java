@@ -212,5 +212,24 @@ public class ListTest {
         System.out.println("list3 -> " + list);
     }
     
+    /**
+     * 日期：2019年4月22日 作者：zhb 说明：移除符合条件的元素
+     * 
+     */
+    @Test
+    public void demo09(){
+        // 根据条件过滤
+        List<Integer> filterNums = new ArrayList<>(Arrays.asList(1,3,5,7,9));
+        // 移除符合条件的元素
+        filterNums.removeIf(x -> x > 5);
+//        filterNums.removeIf(new Predicate<Integer>() {
+//            @Override
+//            public boolean test(Integer t) {
+//                return t > 5;
+//            }
+//        });
+        System.out.println(filterNums);
+    }
+    
     
 }
