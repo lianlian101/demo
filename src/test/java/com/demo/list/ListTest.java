@@ -12,6 +12,7 @@ import java.util.Map;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.junit.Test;
 
@@ -229,6 +230,52 @@ public class ListTest {
 //            }
 //        });
         System.out.println(filterNums);
+    }
+    
+    /**
+     * 日期：2020年1月6日
+     * 作者：zhb
+     * 说明：求集合中的交集，并集，差集
+     * 
+     */
+    @Test
+    public void demo10(){
+        List<Integer> a = new ArrayList<>(Arrays.asList(0,2,3,7,8,9));
+        List<Integer> b = new ArrayList<>(Arrays.asList(0,1,2,3,5,6));
+        // 并集
+        List<Integer> union = CollectionUtils.union(a, b).stream().collect(Collectors.toList());
+        System.out.println(union);
+        // 交集
+        List<Integer> intersection = CollectionUtils.intersection(a, b).stream().collect(Collectors.toList());
+        System.out.println(intersection);
+        // 差集
+        List<Integer> disjunction = CollectionUtils.disjunction(a, b).stream().collect(Collectors.toList());
+        System.out.println(disjunction);
+    }
+    
+    /**
+     * 日期：2020年1月7日
+     * 作者：zhb
+     * 说明：Collections
+     * 
+     */
+    @Test
+    public void demo11(){
+        List<String> list = new ArrayList<>(Arrays.asList("java","sql","go","java"));
+        // 判断指定元素是否存在于集合，存在返回第一次出现的位置；不存在返回-1
+        System.out.println(Collections.binarySearch(list, "java"));
+        
+        // 判断是否有相同的元素，没有返回true，有返回false
+        List<Integer> a = new ArrayList<>(Arrays.asList(0,2,3,7,8,9));
+        List<Integer> b = new ArrayList<>(Arrays.asList(0,1,2,3,5,6));
+        System.out.println(Collections.disjoint(a, b));
+        
+        // 判断指定元素在集合中出现的次数
+        System.out.println(Collections.frequency(list, "java"));
+        
+        // 返回一个空列表（不可变的），返回的空列表是一个内部类创建的，不可调用add方法，调用报错
+        List<String> emptyList = Collections.emptyList();
+        System.out.println(CollectionUtils.isEmpty(emptyList));
     }
     
     

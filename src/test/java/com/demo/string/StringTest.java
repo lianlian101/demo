@@ -3,6 +3,7 @@ package com.demo.string;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Objects;
 
 import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.StringUtils;
@@ -159,6 +160,14 @@ public class StringTest {
         String str = " abc ";
         //System.out.println(StringUtils.isEmpty(str));
         System.out.println(StringUtils.isBlank(str));
+    }
+    
+    @Test
+    public void demo12(){
+        SExample sExample = new SExample(300L, "张三");
+        SExample sExample2 = new SExample(300L, "李四");
+        boolean b = Objects.equals(sExample.getId(), sExample2.getId());
+        System.out.println(b);
     }
     
     
