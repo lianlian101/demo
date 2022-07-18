@@ -3,6 +3,7 @@ package com.demo.list;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -15,7 +16,15 @@ import org.apache.commons.lang3.StringUtils;
 import org.junit.Test;
 
 import com.alibaba.fastjson.JSON;
+import com.google.common.collect.Lists;
 import com.mvn.test.entity.User;
+
+import cn.hutool.core.date.DateUtil;
+import cn.hutool.core.util.StrUtil;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 public class ListTest {
 
@@ -178,5 +187,73 @@ public class ListTest {
         System.out.println(disjunction);
     }
     
+    /**
+     * 集合跳过n个元素，取m个元素方法：skip(n).limit(m)
+     */
+    @Test
+    public void demo8() {
+        List<String> list = Lists.newArrayList("1", "2", "3", "4", "5", "6", "7");
+        System.out.println("原数组: " + list);
+
+        List<String> subList = list.stream().skip(0).limit(2).collect(Collectors.toList());
+        System.out.println("子数组: " + subList);
+
+        list.add(0, "java");
+        System.out.println(list);
+        System.out.println(subList);
+    }
+    
+    /**
+     * 流式获取集合最大值：max()
+     */
+    @Test
+    public void demo9() {
+        String pattern = "yyyy-MM-dd";
+        List<String> dates = Lists.newArrayList("2021-03-01", "2021-03-03", "2021-03-10");
+        Date max = dates.parallelStream().filter(date -> StrUtil.isNotBlank(date))
+                .map(date -> DateUtil.parse(date, pattern))
+                .max((d1, d2) -> DateUtil.compare(d1, d2)).get();
+        String target = DateUtil.format(max, pattern);
+        System.out.println(target);
+    }
+    
+    /**
+     * 流式获取集合平均值: summaryStatistics().getAverage()
+     */
+    @Test
+    public void demo10() {
+        String a = "2.2", b = "3.1", c = "3.0";
+        List<String> strs = Lists.newArrayList(a, b, c).stream().filter(item -> StrUtil.isNotBlank(item))
+                .collect(Collectors.toList());
+        double avg = strs.stream().mapToDouble(item -> Double.parseDouble(item)).summaryStatistics().getAverage();
+        System.out.println(avg);
+    }
+    
+    @Data
+    @Builder
+    @NoArgsConstructor
+    @AllArgsConstructor
+    public static class Example{
+        private int id;
+        private String name;
+    }
+    /**
+     * 按集合元素的指定属性升序
+     */
+    @Test
+    public void demo11() {
+       List<Example> examples = Lists.newArrayList(
+               Example.builder().id(2).name("bbb").build(),
+               Example.builder().id(1).name("aaa").build(),
+               Example.builder().id(3).name("ccc").build()
+               );
+       
+       List<Example> list = examples.stream().sorted(Comparator.comparing(Example::getId)).collect(Collectors.toList());
+       System.out.println(list);
+       
+       // Collections.sort(examples, (a, b) -> a.getId().compareTo(b.getId()));
+       // examples.sort(Comparator.comparing(Example::getId));
+       // examples.sort((a, b) -> a.getId().compareTo(b.getId()));
+    }
     
 }
